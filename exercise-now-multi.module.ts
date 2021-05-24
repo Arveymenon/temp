@@ -8,12 +8,13 @@ import { ComponentsModule } from '../../components/components.module';
 import { ExportAsModule } from 'ngx-export-as';
 import { ExcerciseAppForm } from '../../components/excercise-app-form/excercise-app-form.component';
 import { PayUMoneyModule } from '../../pages/payu-money/payu-money.module'
+import { PopovertaxPage } from '../popovertax/popovertax';
 
 
 @NgModule({
   declarations: [
     ExerciseNowMultiPage,
-    ExcerciseAppForm
+    ExcerciseAppForm,
   ],
   imports: [
     PayUMoneyModule,

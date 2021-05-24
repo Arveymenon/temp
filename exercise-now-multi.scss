@@ -266,6 +266,9 @@ page-exercise-now-multi {
       border: 0.7px dotted #78787b;
       margin-bottom: 20px;
     }
+    .card-md {
+      background-color: #e5e5e5;
+    }
     .card-md,
     .card-ios {
       // margin: 0px 0px 20px 0px !important;
@@ -984,9 +987,9 @@ page-exercise-now-multi {
   }
   .tablayout {
     border: 1px solid #f6f6f6 !important;
-    .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus {
-      // background-color: #ff000012 !important;
-    }
+    // .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus {
+    //   // background-color: #ff000012 !important;
+    // }
     .mat-tab-header {
       border-bottom: 0px !important;
     }
@@ -1874,10 +1877,10 @@ page-exercise-now-multi {
       height: 100vh;
     }
   }
-  .blockContainerScroll {
-    // height: 100vh;
-    // overflow-y: scroll;
-  }
+  // .blockContainerScroll {
+  //   // height: 100vh;
+  //   // overflow-y: scroll;
+  // }
   .eyeViewBtn {
     display: flex;
     align-items: center;
@@ -1897,6 +1900,11 @@ page-exercise-now-multi {
     margin-bottom: 0px !important;
     width: 150px;
     background: #fff !important;
+  }
+  .btn-click {
+    color: #9e9ed2;
+    border-bottom: 1px solid #9e9ed2;
+    background-color: #fff;
   }
   .stockPriceCardHeader {
     border-bottom: 1px solid #e1e1e1;
@@ -2207,9 +2215,9 @@ page-exercise-now-multi {
   .calculateBtnBlock {
     padding: 5px 0px;
   }
-  .summaryFooter {
-    background: #f0f0f0;
-  }
+  // .summaryFooter {
+  //   background: #f0f0f0;
+  // }
   .checkMarkConatiner {
     .item-inner {
       padding: 0px !important;
@@ -2338,7 +2346,7 @@ button[disabled] {
 
 .ap-scroll {
   height: 60vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 

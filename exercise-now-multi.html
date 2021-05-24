@@ -1,5 +1,5 @@
 <ion-content padding class="bgConatiner fixedContainer">
-  
+
   <ion-grid class="noPadding">
     <ion-row>
       <ion-col col-12 class="noLeftPadding" no-padding>
@@ -14,9 +14,9 @@
                 <ion-grid class="hide-only-xs  hide-only-sm grantFirstTab">
                   <ion-card class="summaryBlock">
                     <div>
-                    
+
                       <div>
-                        <mat-tab-group #tabGroup>
+                        <mat-tab-group style="background-color: #e5e5e5;" #tabGroup>
                           <mat-tab label="Grant List">
                             <h3 padding *ngIf="!grantListLoader && finalArrayNew?.length <= 0">
                               No schemes are mapped to your account. Please contact your HR.
@@ -32,7 +32,7 @@
                                     <ion-row style="width: 100%;">
                                       <ion-col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 no-padding>
                                         <ion-item class="schemeHeader grantHdrBlock">
-                                     
+
                                           <div class="hdrMarkCheckContainer">
                                             <mat-checkbox
                                               [disabled]="!checkGrantExercisable(data) || closureWindow || isOnHold"
@@ -41,7 +41,7 @@
                                           </div>
                                           <div style="display: inline-block;" class="hdrText"> Grant Name :
                                             {{ data.SchemeName }}</div>
-                                         
+
 
                                           <div style="position: absolute;
                                             right: 1%;
@@ -518,13 +518,11 @@
                                           </b>
                                         </div>
                                         <div class="summarry-action">
-                                          <button ion-button color="theme-button" outline
-                                            class="recalculateBtn bgTransparent m-r-10" *ngIf="data.Approval == 'S'"
+                                          <button class="btn-click m-r-10" *ngIf="data.Approval == 'S'"
                                             (click)="onEditGetExerciseNew(data)" [disabled]="closureOrHoldFlag()">
                                             Edit
                                           </button>
-                                          <button ion-button color="theme-button" outline
-                                            class="recalculateBtn bgTransparent" *ngIf="data.Approval == 'S'"
+                                          <button class="btn-click" *ngIf="data.Approval == 'S'"
                                             (click)="openConfirmAlert(i, data)" [disabled]="closureOrHoldFlag()">
                                             Discard
                                           </button>
@@ -533,44 +531,41 @@
                                             [disabled]="closureOrHoldFlag()">
                                             Recalculate
                                           </button>
-                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'Q'"
-                                            (click)="completeDocumentProcedure(data)"
-                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                          <button class="btn-click" *ngIf="data.Approval == 'Q'"
+                                            (click)="completeDocumentProcedure(data)" [disabled]="closureOrHoldFlag()">
                                             Payment Pending
                                           </button>
-                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'D'"
-                                            (click)="completeDocumentProcedure(data,'editpayment')"
-                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                          <!-- <a href="#" *ngIf="data.Approval == 'Q'"
+                                          (click)="completeDocumentProcedure(data)">
+                                          Payment Pending
+                                        </a> -->
+                                          <button class="btn-click" outline *ngIf="data.Approval == 'D'" (click)="completeDocumentProcedure(data,'editpayment')"
+                                           [disabled]="closureOrHoldFlag()">
                                             Edit Payment
                                           </button>
-                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'D'"
-                                            (click)="completeDocumentProcedure(data)"
-                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                          <button class="btn-click" *ngIf="data.Approval == 'D'"
+                                            (click)="completeDocumentProcedure(data)" [disabled]="closureOrHoldFlag()">
                                             Upload Documents
                                           </button>
-                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'O'"
-                                            (click)="completeDocumentProcedure(data)"
-                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                          <button class="btn-click" *ngIf="data.Approval == 'O'"
+                                            (click)="completeDocumentProcedure(data)" [disabled]="closureOrHoldFlag()">
                                             Resubmit Details
                                           </button>
-                                          <button ion-button color="theme-button" outline
+                                          <button class="btn-click m-r-10"
                                             *ngIf="viewDocumentsInSummary(data.Approval)"
                                             (click)="viewPaymentDetail(data)"
-                                            class="recalculateBtn bgTransparent m-r-10"
                                             [disabled]="closureOrHoldFlag()">
                                             View Payment Details
                                           </button>
-                                          <button ion-button color="theme-button" outline
-                                            *ngIf="viewDocumentsInSummary(data.Approval)"
+                                          <button *ngIf="viewDocumentsInSummary(data.Approval)"
                                             (click)="openFileNow(data.FileNamesList[0].FileName)"
-                                            class="recalculateBtn bgTransparent m-r-10"
+                                            class="btn-click m-r-10"
                                             [disabled]="closureOrHoldFlag() || isDocAvail(data.FileNamesList[0])">
                                             Application Form
                                           </button>
-                                          <button ion-button color="theme-button" outline
-                                            *ngIf="viewDocumentsInSummary(data.Approval)"
+                                          <button *ngIf="viewDocumentsInSummary(data.Approval)"
                                             (click)="openFileNow(data.FileNamesList[1].FileName)"
-                                            class="recalculateBtn bgTransparent"
+                                            class="btn-click"
                                             [disabled]="closureOrHoldFlag() || isDocAvail(data.FileNamesList[1])">
                                             Form C
                                           </button>
@@ -954,44 +949,47 @@
                                       Pending Share Transfer</span>
                                     <span *ngIf="data.Approval == 'L'">
                                       Pending Share Transfer</span>
-                                  
+
                                   </b>
-                                  <button ion-button color="theme-button" outline
-                                    class="custSmallBtn recalculateBtn bgTransparent" *ngIf="data.Approval == 'S'"
+                                  <button
+                                    class="btn-click" *ngIf="data.Approval == 'S'"
                                     (click)="onEditGetExercise(data)">
                                     Edit
                                   </button>
-                                  <button ion-button color="theme-button" outline
-                                    class="custSmallBtn recalculateBtn bgTransparent" *ngIf="data.Approval == 'S'"
+                                  <button
+                                    class="btn-click" *ngIf="data.Approval == 'S'"
                                     (click)="openConfirmAlert(i, data)">
                                     Discard
                                   </button>
-                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'I'"
-                                    (click)="recalculate(i, data)" class="recalculateBtn bgTransparent">
+                                  <button *ngIf="data.Approval == 'I'"
+                                    (click)="recalculate(i, data)" class="btn-click">
                                     Recalculate
                                   </button>
-                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'Q'"
-                                    (click)="completeDocumentProcedure(data)" class="recalculateBtn bgTransparent">
+                                  <button class="btn-click" *ngIf="data.Approval == 'Q'" (click)="completeDocumentProcedure(data)">
                                     Payment Pending
                                   </button>
-                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'D'"
-                                    (click)="completeDocumentProcedure(data)" class="recalculateBtn bgTransparent">
+                                  <!-- <a href="#" *ngIf="data.Approval == 'Q'"
+                                  (click)="completeDocumentProcedure(data)">
+                                  Payment Pending
+                                </a> -->
+                                  <button *ngIf="data.Approval == 'D'"
+                                    (click)="completeDocumentProcedure(data)" class="btn-click">
                                     Upload Documents
                                   </button>
-                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'O'"
-                                    (click)="completeDocumentProcedure(data)" class="recalculateBtn bgTransparent">
+                                  <button *ngIf="data.Approval == 'O'"
+                                    (click)="completeDocumentProcedure(data)" class="btn-click">
                                     Resubmit Details
                                   </button>
 
-                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'P'"
+                                  <button class="btn-click" *ngIf="data.Approval == 'P'"
                                     (click)="viewPaymentDetail(data)">
                                     VPD
                                   </button>
-                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'P'"
+                                  <button class="btn-click" *ngIf="data.Approval == 'P'"
                                     (click)="viewPaymentDetail(data)">
                                     AF
                                   </button>
-                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'P'"
+                                  <button class="btn-click" *ngIf="data.Approval == 'P'"
                                     (click)="viewPaymentDetail(data)">
                                     FC
                                   </button>
@@ -1006,7 +1004,7 @@
                   </ion-card>
                 </ion-grid>
               </form>
-            
+
             </mat-step>
 
             <mat-step>
@@ -1216,11 +1214,25 @@
                               </button>
                             </div>
                           </div>
+                          <!-- <div class="text-right" style="width: 100%;">
+                            <button ion-button color="darkGray-solid-button"
+                              class="customBtnNew fullWidthBtn bgDarkGray">
+                              Text
+                            </button>
+                          </div> -->
+
                         </ion-col>
                         <ion-col *ngIf="calculateDetails.length>0 && calculateDetails[0].TaxRateChange">
                           <div style="font-size: 1.3rem;" class="grantError">
                             {{calculateDetails[0].TaxChangeMessage}}
                           </div>
+                        </ion-col>
+                        <ion-col class="ion-padding">
+                          <button ion-button color="dark"
+                            style="float: right; border-radius: 5px; text-transform: capitalize;"
+                            (click)="popclick($event)">
+                            Tax Simulator
+                          </button>
                         </ion-col>
                       </ion-row>
                     </div>
@@ -1958,123 +1970,135 @@
                 <!-- [disabled]="detailsObj.Approval==='D' || detailsObj.Approval==='P'" -->
                 <ion-card class="fullBlockCard noShadow confirmTabBlock">
 
-                <div class="ap-tab">
-                  <div class="ap-tab-nav">
-                      <button class="ap-tab-ref" [disabled]="" (click)="moveConfirmStepper(0)" [ngClass]="{'active': stepper1?.selectedIndex >= 0}"> 
+                  <div class="ap-tab">
+                    <div class="ap-tab-nav">
+                      <button class="ap-tab-ref" [disabled]="" (click)="moveConfirmStepper(0)"
+                        [ngClass]="{'active': stepper1?.selectedIndex >= 0}">
                         <span class="ap-number">1</span> Exercise Details</button>
-                  </div>
+                    </div>
 
-                  <div class="ap-tab-nav">
-                    <button class="ap-tab-ref" [disabled]="!(currentExercise?.Approval === 'Q' || currentExercise?.Approval === 'I' || currentExercise?.Approval === 'O')" 
-                    (click)="moveConfirmStepper(1)" [ngClass]="{'active': stepper1?.selectedIndex >= 1}"> <span class="ap-number">2</span> Payment Details</button>
-                  </div>
+                    <div class="ap-tab-nav">
+                      <button class="ap-tab-ref"
+                        [disabled]="!(currentExercise?.Approval === 'Q' || currentExercise?.Approval === 'I' || currentExercise?.Approval === 'O')"
+                        (click)="moveConfirmStepper(1)" [ngClass]="{'active': stepper1?.selectedIndex >= 1}"> <span
+                          class="ap-number">2</span> Payment Details</button>
+                    </div>
 
-                  <div class="ap-tab-nav">
-                      <button class="ap-tab-ref" [disabled]="currentExercise.Approval !== 'D'" (click)="moveConfirmStepper(2)" [ngClass]="{'active': stepper1?.selectedIndex === 2}">
+                    <div class="ap-tab-nav">
+                      <button class="ap-tab-ref" [disabled]="currentExercise.Approval !== 'D'"
+                        (click)="moveConfirmStepper(2)" [ngClass]="{'active': stepper1?.selectedIndex === 2}">
                         <span class="ap-number">3</span> Forms Submitted</button>
                     </div>
-                </div>
-             
-                <div class="ap-tab-container"><!-- tab content start here -->
-                  <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 0"> <!-- first content tab-->
-                    <ng-container *ngIf="exerciseData">
-                      <div class="ap-scroll">
-                          <excercise-app-form (nextStep)="goPaymentStep($event)" [exerciseData] ="exerciseData" id="printform"></excercise-app-form>
-                      </div>
-                    </ng-container>
                   </div>
-                  <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 1"> <!-- Second content tab-->
-                    <div class="d-flex" padding-vertical>
-                      <div class="min-150">
-                          <input type="radio" name="payment" (click)="showPopup(currentExercise,'cheque')" > Cheque/ DD
-                      </div>
 
-                      <div class="min-150">
-                        <input type="radio" name="payment"  (click)="showPopup(currentExercise,'utr')" [disabled]="currentExercise?.Approval === 'O' && !editPaymentFlag && exerciseData?.List_Exercise_Perquesite_Mode[0]?.isUTR == false"> Pay online ( NEFT / IMPS / RTGS )
-                      </div>
-
-                      <div class="min-150">
-                        <input type="radio" name="payment"  (click)="openPaymentGateway($event)" [disabled]="currentExercise?.Approval === 'O'"> Payment Gateway
-                      </div>
+                  <div class="ap-tab-container">
+                    <!-- tab content start here -->
+                    <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 0">
+                      <!-- first content tab-->
+                      <ng-container *ngIf="exerciseData">
+                        <div class="ap-scroll">
+                          <excercise-app-form (nextStep)="goPaymentStep($event)" [exerciseData]="exerciseData"
+                            id="printform"></excercise-app-form>
+                        </div>
+                      </ng-container>
                     </div>
+                    <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 1">
+                      <!-- Second content tab-->
+                      <div class="d-flex" padding-vertical>
+                        <div class="min-150">
+                          <input type="radio" name="payment" (click)="showPopup(currentExercise,'cheque')"> Cheque/ DD
+                        </div>
+
+                        <div class="min-150">
+                          <input type="radio" name="payment" (click)="showPopup(currentExercise,'utr')"
+                            [disabled]="currentExercise?.Approval === 'O' && !editPaymentFlag && exerciseData?.List_Exercise_Perquesite_Mode[0]?.isUTR == false">
+                          Pay online ( NEFT / IMPS / RTGS )
+                        </div>
+
+                        <div class="min-150">
+                          <input type="radio" name="payment" (click)="openPaymentGateway($event)"
+                            [disabled]="currentExercise?.Approval === 'O'"> Payment Gateway
+                        </div>
+                      </div>
 
                       <ng-container *ngIf="paymentGatewayTab">
                         <page-payu-money [excerciseDetails]="currentExercise"></page-payu-money>
                       </ng-container>
-                  </div>
-
-                  <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 2"><!-- third content tab-->
-                    <div padding-vertical>
-                      <div class="solidLongBtnBlock m-r-10" style="display: inline-block">
-                        <button ion-button color="theme-button" outline class="custSmallBtn"
-                          (click)="viewPaymentDetail(currentExercise)" matTooltipClass="tooltipcls"
-                          matTooltip="View payment details submitted" [disabled]="!documentOfflineSubmit">
-                          View Payment Details
-                        </button>
-                      </div>
-
-                      <div class="solidLongBtnBlock" style="display: inline-block">
-                        <button ion-button color="theme-button" outline class="custSmallBtn"
-                          matTooltipClass="tooltipcls" matTooltip="Preview & Save Application Form"
-                          (click)="applicationDownloadWarning($event)" [disabled]="!documentOfflineSubmit">
-                          Preview & Save Application Form
-                        </button>
-                      </div>
                     </div>
 
-                    <ion-row class="paddingCust" style="padding:12px 10px;border-bottom: 1px dotted #dadada;">
-                      <mat-checkbox class="example-margin" [(ngModel)]="documentOfflineSubmit">Hereby, I declare
-                        that
-                        I will send my signed
-                        Application form and Cheques/DD to the Trust
-                        Office.</mat-checkbox>
-                    </ion-row>
-                    <ion-row class="paddingCust" style=" border-bottom: 1px dotted #dadada;">
-                      <ng-container *ngFor="let data of uploadedForms; let j = index">
-                        <ion-col col-3>
-                          <ion-item class="" no-padding>
-                            {{ data.FormName }}
-                            <span class="extension"> </span>
-                          </ion-item>
-                          <ion-item no-padding>
-                            <label ion-button icon-start clear small color="danger" padding style="border: 1px solid #f53d3d;
+                    <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 2">
+                      <!-- third content tab-->
+                      <div padding-vertical>
+                        <div class="solidLongBtnBlock m-r-10" style="display: inline-block">
+                          <button ion-button color="theme-button" outline class="custSmallBtn"
+                            (click)="viewPaymentDetail(currentExercise)" matTooltipClass="tooltipcls"
+                            matTooltip="View payment details submitted" [disabled]="!documentOfflineSubmit">
+                            View Payment Details
+                          </button>
+                        </div>
+
+                        <div class="solidLongBtnBlock" style="display: inline-block">
+                          <button ion-button color="theme-button" outline class="custSmallBtn"
+                            matTooltipClass="tooltipcls" matTooltip="Preview & Save Application Form"
+                            (click)="applicationDownloadWarning($event)" [disabled]="!documentOfflineSubmit">
+                            Preview & Save Application Form
+                          </button>
+                        </div>
+                      </div>
+
+                      <ion-row class="paddingCust" style="padding:12px 10px;border-bottom: 1px dotted #dadada;">
+                        <mat-checkbox class="example-margin" [(ngModel)]="documentOfflineSubmit">Hereby, I declare
+                          that
+                          I will send my signed
+                          Application form and Cheques/DD to the Trust
+                          Office.</mat-checkbox>
+                      </ion-row>
+                      <ion-row class="paddingCust" style=" border-bottom: 1px dotted #dadada;">
+                        <ng-container *ngFor="let data of uploadedForms; let j = index">
+                          <ion-col col-3>
+                            <ion-item class="" no-padding>
+                              {{ data.FormName }}
+                              <span class="extension"> </span>
+                            </ion-item>
+                            <ion-item no-padding>
+                              <label ion-button icon-start clear small color="danger" padding style="border: 1px solid #f53d3d;
                                               height: 30px !important;
                                               width: 150px !important;
                                               background-color: transparent !important;
                                               padding: 0px;    text-transform: capitalize;">
-                              Upload Scanned Copy
-                              <!--  -->
-                              <input (change)="setFiles(data, $event, 1, j)" type="file" id="file"
-                                accept=".png, .jpg, .jpeg, .pdf" style="display: none;" />
-                            </label>
-                           
-                          </ion-item>
-                        </ion-col>
-                        <ion-col col-2>
-                          <ion-item>
-                            <!-- {{data.FileName}} FileName -->
-                            <div
-                              style="border: 1px solid #dadada; height: 120px; width: 100%; border-radius: 5px;padding: 10px;">
-                              <div class="file-preview-container" style="height: 100px;">
-                                <img [src]="getImagePreview(j)" alt="" />
+                                Upload Scanned Copy
+                                <!--  -->
+                                <input (change)="setFiles(data, $event, 1, j)" type="file" id="file"
+                                  accept=".png, .jpg, .jpeg, .pdf" style="display: none;" />
+                              </label>
+
+                            </ion-item>
+                          </ion-col>
+                          <ion-col col-2>
+                            <ion-item>
+                              <!-- {{data.FileName}} FileName -->
+                              <div
+                                style="border: 1px solid #dadada; height: 120px; width: 100%; border-radius: 5px;padding: 10px;">
+                                <div class="file-preview-container" style="height: 100px;">
+                                  <img [src]="getImagePreview(j)" alt="" />
+                                </div>
+
                               </div>
-
+                            </ion-item>
+                            <div *ngIf="data?.fileTypeError == false" class="file-name-container">{{data?.fileName}}
                             </div>
-                          </ion-item>
-                          <div *ngIf="data?.fileTypeError == false" class="file-name-container">{{data?.fileName}}
-                          </div>
 
-                        </ion-col>
-                        <ion-col *ngIf="j==0" col-2 style="display: flex;justify-content: center;">
-                          <div class="file-preview-separator"></div>
-                        </ion-col>
-                      </ng-container>
-                    </ion-row>
+                          </ion-col>
+                          <ion-col *ngIf="j==0" col-2 style="display: flex;justify-content: center;">
+                            <div class="file-preview-separator"></div>
+                          </ion-col>
+                        </ng-container>
+                      </ion-row>
+                    </div>
                   </div>
-                </div>
 
-                 
-                  <!-- <ion-footer padding *ngIf="finalArrayNew.length>0 && !closureWindow && !isOnHold">
+
+                  <ion-footer padding *ngIf="finalArrayNew.length>0 && !closureWindow && !isOnHold">
                     <ion-row align-items-center justify-content-center>
                       <ion-col col-lg-12>
                         <div class="solidBtnBlock" style="display: inline-block;">
@@ -2093,12 +2117,13 @@
                         </div>
                       </ion-col>
                     </ion-row>
-                  </ion-footer> -->
+                  </ion-footer>
                 </ion-card>
               </ion-grid>
               <div style="display: none;">
                 <ion-row align-items-center justify-content-center padding>
                   <ion-col text-center>
+
                     <button
                       [ngClass]="{'exercise-confirm-btn': true, 'blink-border': exerciseConfirmAnimate && documentOfflineSubmit}"
                       ion-button color="theme-button" outline class="custBtn" [disabled]="!documentOfflineSubmit"
@@ -2118,7 +2143,7 @@
         <ion-card *ngIf="!requestSummaryObj && !utilityProvider.checkStatus"
           class=" hide-only-xs hide-only-sm fullBlockCard ">
           <ion-card-header class="stockPriceCardHeader">
-        
+
             <ion-row>
               <ion-col col-6 no-padding class="verticalCenter">
                 Stock Price Trend
@@ -2338,4 +2363,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>  
+</ion-content>

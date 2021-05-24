@@ -1,5 +1,5 @@
 import { Component, ViewChild, NgZone } from "@angular/core";
-import { IonicPage, NavController, NavParams, ToastController, ModalController, ViewController, Events } from "ionic-angular";
+import { IonicPage, NavController, NavParams, ToastController, ModalController, ViewController, Events, PopoverController } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SchemeDetailsProvider } from "../../providers/scheme-details/scheme-details";
 import { UtilityServiceProvider } from "../../providers/utility-service/utility-service";
@@ -13,6 +13,7 @@ import { MatStepper } from "@angular/material";
 import { Api, User } from "../../providers";
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 import { EsopStatusProvider } from "../../providers/esop-status/esop-status";
+import { PopovertaxPage } from "../popovertax/popovertax";
 
 export interface grant {
   value: string;
@@ -183,12 +184,26 @@ export class ExerciseNowMultiPage {
     private exportAsService: ExportAsService,
     private profile: ProfileProvider,
     public esopStatusProvider: EsopStatusProvider,
-    public userProv: User
+    public userProv: User,
+    public popoverController:PopoverController
   ) {
     this.allscheme = [];
     this.backAlert = false;
     this.isOnHoldText = 'You account is marked as on hold. Please contact HR for any query';
     this.closureWindowText = 'ESOP Exercise Window shall remain closed from 11th to 31st March, 2021 due to yearend.';
+  }
+
+  // CreatePopOver() {
+  //   this.popover.create({component:PopovertaxPage,
+  //     showBackdrop:false}).then((popoverElement)=>{
+  //     popoverElement.present();
+  //   });
+  // }
+  popclick(myEvent) {
+    let popover =  this.popoverController.create(PopovertaxPage);
+     popover.present({
+       ev:myEvent
+     });
   }
 
   applicationDownloadWarning(event) {
