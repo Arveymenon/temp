@@ -1,0 +1,2341 @@
+<ion-content padding class="bgConatiner fixedContainer">
+  
+  <ion-grid class="noPadding">
+    <ion-row>
+      <ion-col col-12 class="noLeftPadding" no-padding>
+        <ion-card class="exercisePannel fullBlockCard">
+          <mat-horizontal-stepper [linear]="!isLinear" #stepper>
+            <mat-step>
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>
+                  <ion-icon name="star" style="margin-right: 9px;"></ion-icon>My
+                  Grant
+                </ng-template>
+                <ion-grid class="hide-only-xs  hide-only-sm grantFirstTab">
+                  <ion-card class="summaryBlock">
+                    <div>
+                    
+                      <div>
+                        <mat-tab-group #tabGroup>
+                          <mat-tab label="Grant List">
+                            <h3 padding *ngIf="!grantListLoader && finalArrayNew?.length <= 0">
+                              No schemes are mapped to your account. Please contact your HR.
+                            </h3>
+                            <div *ngIf="grantListLoader" class="justifyCenter summaryLoader">
+                              <img src="assets/loader.gif" alt="" style="width: 50px; height: 57px;">
+                              <span>Please wait...</span>
+                            </div>
+                            <ion-grid no-padding>
+                              <ion-card class="fullBlockCard noShadow">
+                                <div class="grantBlockList" padding>
+                                  <div *ngFor="let data of finalArrayNew; let i = index" margin-bottom>
+                                    <ion-row style="width: 100%;">
+                                      <ion-col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 no-padding>
+                                        <ion-item class="schemeHeader grantHdrBlock">
+                                     
+                                          <div class="hdrMarkCheckContainer">
+                                            <mat-checkbox
+                                              [disabled]="!checkGrantExercisable(data) || closureWindow || isOnHold"
+                                              (change)="selectGrantsToExercise(data,$event,i)">
+                                            </mat-checkbox>
+                                          </div>
+                                          <div style="display: inline-block;" class="hdrText"> Grant Name :
+                                            {{ data.SchemeName }}</div>
+                                         
+
+                                          <div style="position: absolute;
+                                            right: 1%;
+                                            top: 25%;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;">
+
+                                            <span style="display: inline-block;" *ngIf="checkGrantExercisable(data)"
+                                              class="newSucess grantError">
+                                              Grant is exerciseable
+                                            </span>
+                                            <span style="display: inline-block;" *ngIf="!checkGrantExercisable(data)"
+                                              class="newError grantError">
+                                              {{grantErrorText(data)}}
+                                            </span>
+                                            <ion-icon class="icon" name="prefix-tableViewIcon" class="infoIcon"
+                                              matTooltip="View" (click)="openGrantDetails(data, i)"></ion-icon>
+                                          </div>
+                                        </ion-item>
+                                        <span>
+
+                                        </span>
+                                      </ion-col>
+
+                                    </ion-row>
+                                    <!-- <div style="overflow-x: scroll;"> -->
+                                    <ion-row style="width: 100%; flex-wrap: nowrap;">
+                                      <ion-col no-padding sticky
+                                        style="flex: 0 0 4% !important;width: 4% !important;max-width: 4% !important;">
+                                        <ion-item class="exerciseDeatilCards checkMarkConatiner" no-padding>
+                                          <ion-icon *ngIf="checkGrants[i]" name="checkmark" class="grantChecked">
+                                          </ion-icon>
+                                        </ion-item>
+                                      </ion-col>
+                                      <ion-col col-xl-2 col-lg-3 col-md-3 col-sm-12 col-12 no-padding sticky>
+                                        <ion-item class="exerciseDeatilCards" text-wrap>
+                                          <p matTooltipClass="tooltipcls" matTooltip="Grant Option ID">
+                                            Grant Option ID
+                                          </p>
+                                          <h2 matTooltip="{{ data.GrantOptionId }}" matTooltipClass="tooltipcls">
+                                            {{ data.GrantOptionId || 0 }}
+                                          </h2>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                        <ion-item class="exerciseDeatilCards" text-wrap>
+                                          <p matTooltipClass="tooltipcls" matTooltip="Options granted to you">
+                                            Options Granted
+                                          </p>
+                                          <h2>{{ data.OptionsGranted || 0 }}</h2>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                        <ion-item class="exerciseDeatilCards" text-wrap>
+                                          <p matTooltipClass="tooltipcls" matTooltip="Options you can exercise">
+                                            Options Vested & Exercisable
+                                          </p>
+                                          <h2>{{ data.Exerciseable || 0 }}</h2>
+                                        </ion-item>
+                                      </ion-col>
+                                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                        <ion-item class="exerciseDeatilCards" text-wrap>
+                                          <p matTooltipClass="tooltipcls" matTooltip="Options you have exercised">
+                                            Options Exercised
+                                          </p>
+                                          <h2>{{ data.Exercised || 0 }}</h2>
+                                        </ion-item>
+                                      </ion-col>
+                                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                        <ion-item class="exerciseDeatilCards" text-wrap>
+                                          <p matTooltipClass="tooltipcls" matTooltip="Options you have not yet vested.">
+                                            Options Unvested
+                                          </p>
+                                          <h2>{{ data.UnvestedOptions || 0 }}</h2>
+                                        </ion-item>
+                                      </ion-col>
+
+                                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                        <ion-item class="exerciseDeatilCards" text-wrap>
+                                          <p matTooltipClass="tooltipcls" matTooltip="Exercise price of per option">
+                                            Exercise Price
+                                          </p>
+                                          <h2>{{ data.ExercisePrice || 0 }}</h2>
+                                        </ion-item>
+                                      </ion-col>
+                                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                        <ion-item class="exerciseDeatilCards"
+                                          style="  border-right: 1px solid #eee !important;" text-wrap>
+                                          <p matTooltipClass="tooltipcls" matTooltip="Status">
+                                            Scheme Status
+                                          </p>
+                                          <h2 class="stastusGreen" *ngIf="data.Status">
+                                            Active
+                                          </h2>
+                                          <h2 class="stastusGreen" *ngIf="!data.Status">
+                                            Vesting Ended
+                                            <!-- Expired -->
+                                          </h2>
+                                        </ion-item>
+                                      </ion-col>
+                                    </ion-row>
+                                    <ng-container *ngIf="data.BonusOptions.length > 0">
+                                      <ion-row *ngFor="let bonus of data.BonusOptions"
+                                        style="width: 100%; flex-wrap: nowrap;" class="bonusRow">
+                                        <ion-col
+                                          style="flex: 0 0 4% !important;width: 4% !important;max-width: 4% !important;"
+                                          no-padding>
+                                          <ion-item class="exerciseDeatilCards checkMarkConatiner" no-padding>
+                                            <ion-icon *ngIf="checkGrants[i]" name="checkmark" class="grantChecked">
+                                            </ion-icon>
+                                          </ion-item>
+                                        </ion-col>
+                                        <ion-col col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 no-padding>
+                                          <ion-item class="exerciseDeatilCards" text-wrap>
+                                            <p matTooltipClass="tooltipcls" matTooltip="Grant Option ID"
+                                              class="bonusTile">
+                                              Bonus
+                                            </p>
+                                            <h2 matTooltip="{{ bonus.GrantOptionId }}" matTooltipClass="tooltipcls">
+                                              {{ bonus.GrantOptionId }}
+                                            </h2>
+                                          </ion-item>
+                                        </ion-col>
+                                        <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                          <ion-item class="exerciseDeatilCards" text-wrap>
+                                            <!-- <p matTooltipClass="tooltipcls" matTooltip="Options granted to you">Options
+                                            Granted
+                                          </p> -->
+                                            <h2>
+                                              {{ bonus.OptionsGranted || 0 }}
+                                            </h2>
+                                          </ion-item>
+                                        </ion-col>
+
+                                        <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                          <ion-item class="exerciseDeatilCards" text-wrap>
+                                            <!-- <p matTooltipClass="tooltipcls" matTooltip="Options you can exercise">
+                                            Exercisable
+                                            Options</p> -->
+                                            <h2>{{ bonus.Exerciseable || 0 }}</h2>
+                                          </ion-item>
+                                        </ion-col>
+                                        <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                          <ion-item class="exerciseDeatilCards" text-wrap>
+                                            <!-- <p matTooltipClass="tooltipcls" matTooltip="Options you have exercised">
+                                            Exercised</p> -->
+                                            <h2>{{ bonus.Exercised || 0 }}</h2>
+                                          </ion-item>
+                                        </ion-col>
+                                        <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                          <ion-item class="exerciseDeatilCards" text-wrap>
+                                            <!-- <p matTooltipClass="tooltipcls" matTooltip="Options you have not yet vested.">
+                                            Unvested
+                                            Options</p> -->
+                                            <h2>
+                                              {{ bonus.UnvestedOptions || 0 }}
+                                            </h2>
+                                          </ion-item>
+                                        </ion-col>
+
+                                        <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                          <ion-item class="exerciseDeatilCards" text-wrap>
+                                            <!-- <p matTooltipClass="tooltipcls" matTooltip="Exercise price of per option">
+                                            Exercise
+                                            Price
+                                          </p> -->
+                                            <h2>{{ 0 }}</h2>
+                                          </ion-item>
+                                        </ion-col>
+                                        <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                                          <ion-item class="exerciseDeatilCards"
+                                            style="  border-right: 1px solid #eee !important;" text-wrap>
+                                            <!-- <p matTooltipClass="tooltipcls" matTooltip="Status">Status</p> -->
+                                            <h2 class="stastusGreen" *ngIf="data.Status">
+                                              Active
+                                            </h2>
+                                            <h2 class="stastusGreen" *ngIf="!data.Status">
+                                              Expired
+                                            </h2>
+                                          </ion-item>
+                                        </ion-col>
+                                      </ion-row>
+                                    </ng-container>
+                                    <!-- </div> -->
+                                  </div>
+
+                                  <div class="fixedBlockouter stickDiv hide-only-xs hide-only-sm"
+                                    style="display: none;;">
+                                    <ion-row *ngIf="closureWindow">
+                                      <ion-col>
+                                        <span class="grantError">
+                                          {{closureWindowText}}
+                                        </span>
+                                      </ion-col>
+                                    </ion-row>
+                                    <ion-row *ngIf="finalArrayNew.length>0 && !closureWindow" align-items-center
+                                      justify-content-end padding style="display: none;">
+                                      <ion-col text-center>
+                                        <div matTooltipClass="tooltipcls" [matTooltip]="
+                                      !checkExerciseProceed()
+                                        ? 'Select Grant(s) To Exercise'
+                                        : ''
+                                    " style="display: inline-block;">
+                                          <button ion-button color="theme-button" outline class="custBtn bgTransparent"
+                                            style="width: 100% !important;" [disabled]="!checkExerciseProceed()"
+                                            (click)="confirmExerciseProceed()">
+                                            Proceed To Exercise
+                                          </button>
+                                          <!-- || data.OnHoldStatus == '1' -->
+                                        </div>
+                                      </ion-col>
+                                    </ion-row>
+                                  </div>
+                                </div>
+
+                                <ion-footer padding>
+                                  <ng-container *ngIf="closureWindow && !isOnHold">
+                                    <ion-row align-items-center justify-content-center
+                                      *ngIf="closureWindowStatus==null">
+                                      <ion-col text-center col-12>
+                                        <span class="grantError">
+                                          {{closureWindowText}}
+                                        </span>
+                                        <div style="margin-top: 10px;">
+                                          <button class="ButtonSave" ion-button outline color="theme-solid-button"
+                                            [disabled]="false" (click)="precleranceExceed()">
+                                            Apply For ESOP Pre-Clearance
+                                          </button>
+                                        </div>
+                                      </ion-col>
+                                    </ion-row>
+                                    <ion-row align-items-center justify-content-center
+                                      *ngIf="closureWindowStatus=='Pending'  && closureWindow==true">
+                                      <ion-col text-center col-12>
+                                        <span class="grantError">
+                                          You have applied for Pre-Clearance. Approval from the Complaince Officer is
+                                          pending.
+                                        </span>
+                                      </ion-col>
+                                    </ion-row>
+                                    <ion-row align-items-center justify-content-center
+                                      *ngIf="closureWindowStatus=='Rejected' && closureWindow==true"
+                                      style="cursor: pointer;">
+                                      <ion-col text-center col-12>
+                                        <!-- <span class="grantError" (click)="RedirectReject()"> -->
+                                        <span class="grantError">
+                                          Your Pre-Clearance request has been rejected by the Secretariat.
+                                        </span>
+                                        <div style="margin-top: 10px;">
+                                          <button class="ButtonSave" ion-button outline color="theme-solid-button"
+                                            [disabled]="false" (click)="precleranceExceed()">
+                                            Apply For ESOP Pre-Clearance
+                                          </button>
+                                        </div>
+                                      </ion-col>
+                                    </ion-row>
+                                  </ng-container>
+                                  <ng-container *ngIf="isOnHold">
+                                    <ion-row align-items-center justify-content-center>
+                                      <ion-col text-center col-12>
+                                        <span class="grantError">
+                                          {{isOnHoldText}}
+                                        </span>
+                                      </ion-col>
+                                    </ion-row>
+                                  </ng-container>
+                                  <ion-row align-items-center justify-content-end
+                                    *ngIf="finalArrayNew.length>0 && !closureWindow && !isOnHold">
+                                    <ion-col text-center col-lg-3 justify-content-end class="verticalEndCenter">
+                                      <div matTooltipClass="tooltipcls" [matTooltip]="
+                                        !checkExerciseProceed()
+                                          ? 'Select Grant(s) To Exercise'
+                                          : ''
+                                      " style="display: inline-block;">
+                                        <div class="solidBigBtnBlock">
+                                          <button class="ButtonSave bgTransparent" ion-button outline
+                                            color="theme-button" [disabled]="!checkExerciseProceed()"
+                                            (click)="confirmExerciseProceed()"> Proceed
+                                            To Exercise</button>
+                                        </div>
+                                      </div>
+                                    </ion-col>
+                                  </ion-row>
+                                </ion-footer>
+                              </ion-card>
+                            </ion-grid>
+                          </mat-tab>
+                          <mat-tab label="Exercise Summary" class="RequestTabLeft exerciseSummaryTab">
+                            <h3 padding *ngIf="employeeExerciseForms?.length <= 0 && !summaryListLoader">
+                              No options exercised yet.
+                            </h3>
+                            <div *ngIf="summaryListLoader" class="justifyCenter summaryLoader">
+                              <img src="assets/loader.gif" alt="" style="width: 50px; height: 57px;">
+                              <span>Please wait...</span>
+                            </div>
+                            <ion-grid no-padding>
+                              <ion-card class="fullBlockCard noShadow">
+                                <div class="grantBlockList" padding>
+                                  <ion-row *ngFor="let data of employeeExerciseForms;let i = index" margin-bottom>
+                                    <ion-col col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 no-padding>
+                                      <ion-item class="exerciseDeatilCards topBorder">
+                                        <p>Exercise ID</p>
+                                        <h2 matTooltipClass="tooltipcls" matTooltip="{{ data.ExerciseNumber }}"
+                                          class="custEllipsis ">
+                                          {{ data.ExerciseNumber || 0 }}
+                                        </h2>
+                                      </ion-item>
+                                    </ion-col>
+                                    <ion-col col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 no-padding>
+                                      <ion-item class="exerciseDeatilCards topBorder">
+                                        <p>Exercise Date</p>
+                                        <h2>
+                                          {{
+                                          (data.ExerciseDate
+                                          | date: "dd-MMM-yyyy") || "-"
+                                          }}
+                                        </h2>
+                                      </ion-item>
+                                    </ion-col>
+                                    <ion-col col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 no-padding>
+                                      <ion-item class="exerciseDeatilCards topBorder">
+                                        <p>No. of Options</p>
+                                        <h2>{{ data.OptionsOpted || 0 }}</h2>
+                                      </ion-item>
+                                    </ion-col>
+                                    <ion-col col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 no-padding>
+                                      <ion-item class="exerciseDeatilCards topBorder rightBorder">
+                                        <p>
+                                          Status
+                                          <ion-icon class="icon" name="md-information-circle" matTooltip="View"
+                                            (click)="openReqSummDetails(data)"
+                                            style="color: black; font-size: 15px;margin-left: 5px;cursor: pointer;position: absolute;">
+                                          </ion-icon>
+
+                                        </p>
+                                        <h2 class="statusRemarks" matTooltipClass="tooltipcls" matTooltip="{{
+                                      data.Approval == 'A'
+                                        ? 'Payment Approved'
+                                        : data.Approval == 'I'
+                                        ? 'Exercised'
+                                        : data.Approval == 'P'
+                                        ? 'Application Submitted'
+                                        : data.Approval == 'Q'
+                                        ? 'Request Submitted'
+                                        : data.Approval == 'L'
+                                        ? 'Pending Share Transfer'
+                                        : data.Approval == 'D'
+                                        ? 'Payment Submitted'
+                                        : data.Approval == 'H'
+                                        ? 'Hold'
+                                        : data.Approval == 'O'
+                                        ? 'Re-Submission'
+                                        : data.Approval == 'R'
+                                        ? 'Payment Rejected'
+                                        : data.Approval == 'S'
+                                        ? 'Saved as Draft'
+                                        : data.Approval == 'E'
+                                        ? 'Application Acknowledged'
+                                        : data.Approval == 'J'
+                                        ? 'Share Transferred'
+                                        : data.Approval == 'K'
+                                        ? 'Share not Transferred'
+                                        : data.Approval == 'U'
+                                        ? 'Pending Share Transfer'
+                                        : data.Approval == 'C'
+                                        ? 'Cancelled'
+                                        : ''
+                                    }}" [ngStyle]="{
+                                      color:
+                                        data.Approval == 'A'
+                                          ? '#27ae60'
+                                          : data.Approval == 'P'
+                                          ? '#27ae60'
+                                          : data.Approval == 'Q'
+                                          ? '#27ae60'
+                                          : data.Approval == 'L'
+                                          ? '#27ae60'
+                                          : data.Approval == 'D'
+                                          ? '#27ae60'
+                                          : data.Approval == 'H'
+                                          ? '#d35400'
+                                          : data.Approval == 'O'
+                                          ? '#d35400'
+                                          : data.Approval == 'I'
+                                          ? '#d35400'
+                                          : data.Approval == 'C'
+                                          ? '#e74c3c'
+                                          : data.Approval == 'R'
+                                          ? '#e74c3c'
+                                          : data.Approval == 'S'
+                                          ? '#2980b9  '
+                                          : data.Approval == 'E'
+                                          ? '#27ae60'
+                                          : data.Approval == 'J'
+                                          ? '#6bce49'
+                                          : data.Approval == 'K'
+                                          ? '#6bce49'
+                                          : data.Approval == 'U'
+                                          ? '#6bce49'
+                                          : '#000000'
+                                    }">
+                                          {{
+                                          data.Approval == "A"
+                                          ? "Payment Approved"
+                                          : data.Approval == "I"
+                                          ? "Exercised"
+                                          : data.Approval == "P"
+                                          ? "Application Submitted"
+                                          : data.Approval == "Q"
+                                          ? "Request Submitted"
+                                          : data.Approval == "L"
+                                          ? "Pending Share Transfer"
+                                          : data.Approval == "D"
+                                          ? "Payment Submitted"
+                                          : data.Approval == "H"
+                                          ? "Hold"
+                                          : data.Approval == "O"
+                                          ? "Re-Submission"
+                                          : data.Approval == "R"
+                                          ? "Payment Rejected"
+                                          : data.Approval == "S"
+                                          ? "Saved as Draft"
+                                          : data.Approval == "E"
+                                          ? "Application Acknowledged"
+                                          : data.Approval == "J"
+                                          ? "Share Transferred"
+                                          : data.Approval == "K"
+                                          ? "Share not Transferred"
+                                          : data.Approval == "U"
+                                          ? "Pending Share Transfer"
+                                          : data.Approval == "C"
+                                          ? "Cancelled"
+                                          : ""
+                                          }}
+                                        </h2>
+                                      </ion-item>
+                                    </ion-col>
+                                    <ion-col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 no-padding>
+                                      <ion-item class="exerciseDeatilCards buttonBlock summaryFooter"
+                                        style="  border-right: 1px solid #eee !important;text-align: center;"
+                                        [matTooltip]="closureOrHoldText()">
+                                        <!-- <p>Actions</p>   -->
+                                        <div class="summarry-action">
+                                          <b *ngIf="
+                                      data.Approval != 'S' &&
+                                      data.Approval != 'Q' &&
+                                      data.Approval != 'I' &&
+                                      data.Approval != 'O'
+                                    ">
+                                            <span *ngIf="data.Approval == 'K'">
+                                              Rejected by Kotak</span>
+                                            <span *ngIf="data.Approval == 'R'">
+                                              Rejected by Trust
+                                            </span>
+                                            <span *ngIf="data.Approval == 'J'" matTooltipClass="tooltipcls"
+                                              [ngStyle]="{ color: '#6bce49' }" matTooltip="Share Transferred By Trust">
+                                              Share Transferred By Trust</span>
+                                            <!-- <span matTooltipClass="tooltipcls" matTooltip="Application form or Form C Pending"
+                                        *ngIf='data.Approval=="D"'> Document Pending</span> -->
+                                            <span matTooltipClass="tooltipcls" matTooltip="Application Acknowledged"
+                                              *ngIf="data.Approval == 'E'">
+                                              Application Acknowledged</span>
+                                            <span matTooltipClass="tooltipcls" matTooltip="Payment Approved"
+                                              *ngIf="data.Approval == 'A'">
+                                              Payment Approved</span>
+                                            <span *ngIf="data.Approval == 'U'">
+                                              Pending Share Transfer</span>
+                                            <span *ngIf="data.Approval == 'L'">
+                                              Pending Share Transfer</span>
+
+                                          </b>
+                                        </div>
+                                        <div class="summarry-action">
+                                          <button ion-button color="theme-button" outline
+                                            class="recalculateBtn bgTransparent m-r-10" *ngIf="data.Approval == 'S'"
+                                            (click)="onEditGetExerciseNew(data)" [disabled]="closureOrHoldFlag()">
+                                            Edit
+                                          </button>
+                                          <button ion-button color="theme-button" outline
+                                            class="recalculateBtn bgTransparent" *ngIf="data.Approval == 'S'"
+                                            (click)="openConfirmAlert(i, data)" [disabled]="closureOrHoldFlag()">
+                                            Discard
+                                          </button>
+                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'I'"
+                                            (click)="recalculate(i, data)" class="recalculateBtn bgTransparent"
+                                            [disabled]="closureOrHoldFlag()">
+                                            Recalculate
+                                          </button>
+                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'Q'"
+                                            (click)="completeDocumentProcedure(data)"
+                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                            Payment Pending
+                                          </button>
+                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'D'"
+                                            (click)="completeDocumentProcedure(data,'editpayment')"
+                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                            Edit Payment
+                                          </button>
+                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'D'"
+                                            (click)="completeDocumentProcedure(data)"
+                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                            Upload Documents
+                                          </button>
+                                          <button ion-button color="theme-button" outline *ngIf="data.Approval == 'O'"
+                                            (click)="completeDocumentProcedure(data)"
+                                            class="recalculateBtn bgTransparent" [disabled]="closureOrHoldFlag()">
+                                            Resubmit Details
+                                          </button>
+                                          <button ion-button color="theme-button" outline
+                                            *ngIf="viewDocumentsInSummary(data.Approval)"
+                                            (click)="viewPaymentDetail(data)"
+                                            class="recalculateBtn bgTransparent m-r-10"
+                                            [disabled]="closureOrHoldFlag()">
+                                            View Payment Details
+                                          </button>
+                                          <button ion-button color="theme-button" outline
+                                            *ngIf="viewDocumentsInSummary(data.Approval)"
+                                            (click)="openFileNow(data.FileNamesList[0].FileName)"
+                                            class="recalculateBtn bgTransparent m-r-10"
+                                            [disabled]="closureOrHoldFlag() || isDocAvail(data.FileNamesList[0])">
+                                            Application Form
+                                          </button>
+                                          <button ion-button color="theme-button" outline
+                                            *ngIf="viewDocumentsInSummary(data.Approval)"
+                                            (click)="openFileNow(data.FileNamesList[1].FileName)"
+                                            class="recalculateBtn bgTransparent"
+                                            [disabled]="closureOrHoldFlag() || isDocAvail(data.FileNamesList[1])">
+                                            Form C
+                                          </button>
+                                        </div>
+                                      </ion-item>
+                                    </ion-col>
+                                  </ion-row>
+                                </div>
+                              </ion-card>
+                            </ion-grid>
+                          </mat-tab>
+                        </mat-tab-group>
+                      </div>
+                    </div>
+                  </ion-card>
+
+                </ion-grid>
+                <!--Request Summary Block mobile view start-->
+                <ion-grid class="hide-only-lg hide-only-md hide-only-xl mobileViewDesign">
+                  <ion-card class="tablayout">
+                    <ion-row>
+                      <mat-tab-group dynamicHeight>
+                        <mat-tab label="Grant List">
+                          <div>
+                            <ion-card class="grantList" *ngFor="let data of finalArray; let i = index">
+                              <ion-row>
+                                <ion-col col-7 no-padding>
+                                  <ion-item class="schemeHeader">
+                                    {{ data.SchemeName }}
+                                  </ion-item>
+                                  <span>
+
+                                    <ion-icon class="icon" name="prefix-tableViewIcon" matTooltip="View"
+                                      (click)="openGrantDetails(data, i)" class="infoIcon"
+                                      style="position: absolute;right: 10px; top: 25%;font-size: 21px;"></ion-icon>
+                                  </span>
+                                </ion-col>
+                                <ion-col col-5 no-padding class="exnow">
+
+                                  <ion-item class="schemeHeader" [attr.disabled]="data.Status == false" [ngClass]="{
+                                      'disable-element': data.Status == false
+                                    }" (click)="goToNextTab(data)"
+                                    style="background: #303038;color:#fff;text-align: center;">
+                                    <button [disabled]="
+                                        data.Status == false ||
+                                        data.OnHoldStatus == '1'
+                                      " mat-button style="margin-bottom: 0px !important; padding: 0px;color:#fff;"
+                                      required>
+                                      Exercise Now &nbsp;
+                                      <ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward"></ion-icon>
+                                    </button>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Grant Option ID</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item class="lineClampText">
+                                    <p>
+                                      <b matTooltipClass="tooltipcls" matTooltip="{{ data.GrantOptionId }}">{{
+                                        data.GrantOptionId || 0 }}</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Options Granted</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ data.OptionsGranted || 0 }}</b>
+                                      <span *ngIf="data.BonusDate" class="bonus-badge">+{{ data.OptionsGranted_B || 0
+                                        }}</span>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Vested Option</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ data.VestedOptions || 0 }}</b>
+                                      <span *ngIf="data.BonusDate" class="bonus-badge">+{{ data.VestedOptions_B || 0
+                                        }}</span>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Exercisable Options</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ data.Exerciseable || 0 }}</b>
+                                      <span *ngIf="data.BonusDate" class="bonus-badge">+{{ data.Exerciseable_B || 0
+                                        }}</span>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Exercised</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ data.Exercised || 0 }}</b>
+                                      <span *ngIf="data.BonusDate" class="bonus-badge">+{{ data.Exercised_B || 0
+                                        }}</span>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Unvested Options</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ data.UnvestedOptions || 0 }}</b>
+                                      <span *ngIf="data.BonusDate" class="bonus-badge">+{{
+                                        data.UnvestedOptions_B || 0
+                                        }}</span>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Lapse Date</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b *ngIf="data.LapseDate">{{
+                                        (data.LapseDate
+                                        | date: "dd-MMM-yyyy") || "-"
+                                        }}</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Exercise Price</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ data.ExercisePrice || 0 }}</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Bonus Price</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ 0 }}</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+
+
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Status</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b *ngIf="data.Status == true">Active</b>
+                                      <b *ngIf="data.Status == false">Expired</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                              </ion-row>
+                            </ion-card>
+                          </div>
+                        </mat-tab>
+                        <mat-tab label="Exercise Summary">
+                          <div>
+                            <ion-card class="requestSummary" *ngFor="let data of employeeExerciseForms">
+                              <ion-row>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Exercise ID</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b matTooltipClass="tooltipcls" matTooltip="{{ data.ExerciseNumber }}"
+                                        class="custEllipsis ">{{ data.ExerciseNumber || 0 }}</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>Exercise Date</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{
+                                        (data.ExerciseDate
+                                        | date: "dd-MMM-yyyy") || "-"
+                                        }}</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>No. of Options</p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      <b>{{ data.OptionsOpted || 0 }}</b>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <p>
+                                      Status
+                                      <ion-icon ios="ios-information-circle" md="md-information-circle"
+                                        matTooltip="Information" (click)="openReqSummDetails(data)"
+                                        style="color: gray; font-size: 15px;margin-left: 5px;cursor: pointer;">
+                                      </ion-icon>
+                                    </p>
+                                  </ion-item>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                  <ion-item>
+                                    <h2 class="statusRemarksMobile" matTooltipClass="tooltipcls" matTooltip="{{
+                                        data.Approval == 'A'
+                                          ? 'Payment Approved'
+                                          : data.Approval == 'I'
+                                          ? 'Exercised'
+                                          : data.Approval == 'P'
+                                          ? 'Application Submitted'
+                                          : data.Approval == 'Q'
+                                          ? 'Request Submitted'
+                                          : data.Approval == 'L'
+                                          ? 'Pending Share Transfer'
+                                          : data.Approval == 'D'
+                                          ? 'Payment Submitted'
+                                          : data.Approval == 'H'
+                                          ? 'Hold'
+                                          : data.Approval == 'O'
+                                          ? 'Re-Submission'
+                                          : data.Approval == 'R'
+                                          ? 'Payment Rejected'
+                                          : data.Approval == 'S'
+                                          ? 'Saved as Draft'
+                                          : data.Approval == 'E'
+                                          ? 'Application Acknowledged'
+                                          : data.Approval == 'J'
+                                          ? 'Share Transferred'
+                                          : data.Approval == 'K'
+                                          ? 'Share not Transferred'
+                                          : data.Approval == 'U'
+                                          ? 'Pending Share Transfer'
+                                          : data.Approval == 'C'
+                                          ? 'Cancelled'
+                                          : ''
+                                      }}" [ngStyle]="{
+                                        color:
+                                          data.Approval == 'A'
+                                            ? '#27ae60'
+                                            : data.Approval == 'P'
+                                            ? '#27ae60'
+                                            : data.Approval == 'Q'
+                                            ? '#27ae60'
+                                            : data.Approval == 'L'
+                                            ? '#27ae60'
+                                            : data.Approval == 'D'
+                                            ? '#27ae60'
+                                            : data.Approval == 'H'
+                                            ? '#d35400'
+                                            : data.Approval == 'O'
+                                            ? '#d35400'
+                                            : data.Approval == 'I'
+                                            ? '#d35400'
+                                            : data.Approval == 'C'
+                                            ? '#e74c3c'
+                                            : data.Approval == 'R'
+                                            ? '#e74c3c'
+                                            : data.Approval == 'S'
+                                            ? '#2980b9  '
+                                            : data.Approval == 'E'
+                                            ? '#27ae60'
+                                            : data.Approval == 'J'
+                                            ? '#6bce49'
+                                            : data.Approval == 'K'
+                                            ? '#6bce49'
+                                            : data.Approval == 'U'
+                                            ? '#6bce49'
+                                            : '#000000'
+                                      }">
+                                      {{
+                                      data.Approval == "A"
+                                      ? "Payment Approved"
+                                      : data.Approval == "I"
+                                      ? "Exercised"
+                                      : data.Approval == "P"
+                                      ? "Application Submitted"
+                                      : data.Approval == "Q"
+                                      ? "Request Submitted"
+                                      : data.Approval == "L"
+                                      ? "Pending Share Transfer"
+                                      : data.Approval == "D"
+                                      ? "Payment Submitted"
+                                      : data.Approval == "H"
+                                      ? "Hold"
+                                      : data.Approval == "O"
+                                      ? "Re-Submission"
+                                      : data.Approval == "R"
+                                      ? "Payment Rejected"
+                                      : data.Approval == "S"
+                                      ? "Saved as Draft"
+                                      : data.Approval == "E"
+                                      ? "Application Acknowledged"
+                                      : data.Approval == "J"
+                                      ? "Share Transferred"
+                                      : data.Approval == "K"
+                                      ? "Share not Transferred"
+                                      : data.Approval == "U"
+                                      ? "Pending Share Transfer"
+                                      : data.Approval == "C"
+                                      ? "Cancelled"
+                                      : ""
+                                      }}
+                                    </h2>
+                                  </ion-item>
+
+                                </ion-col>
+                                <ion-item class="exerciseDeatilCards buttonBlock"
+                                  style="  border-right: 1px solid #eee !important;text-align: center;">
+                                  <!-- <p>Actions</p>   -->
+                                  <b *ngIf="
+                                      data.Approval != 'S' &&
+                                      data.Approval != 'Q' &&
+                                      data.Approval != 'I' &&
+                                      data.Approval != 'O'
+                                    ">
+                                    <span *ngIf="data.Approval == 'K'">
+                                      Rejected by Kotak</span>
+                                    <span *ngIf="data.Approval == 'R'">
+                                      Rejected by Trust
+                                    </span>
+                                    <span *ngIf="data.Approval == 'J'" matTooltipClass="tooltipcls"
+                                      [ngStyle]="{ color: '#6bce49' }" matTooltip="Share Transferred By Trust">
+                                      Share Transferred By Trust</span>
+                                    <span matTooltipClass="tooltipcls" matTooltip="Application form or Form C Pending"
+                                      *ngIf="data.Approval == 'D'">Document Pending</span>
+                                    <span matTooltipClass="tooltipcls" matTooltip="Application Acknowledged"
+                                      *ngIf="data.Approval == 'E'">
+                                      Application Acknowledged</span>
+                                    <span matTooltipClass="tooltipcls" matTooltip="Payment Approved"
+                                      *ngIf="data.Approval == 'A'">Payment Approved</span>
+                                    <span *ngIf="data.Approval == 'U'">
+                                      Pending Share Transfer</span>
+                                    <span *ngIf="data.Approval == 'L'">
+                                      Pending Share Transfer</span>
+                                  
+                                  </b>
+                                  <button ion-button color="theme-button" outline
+                                    class="custSmallBtn recalculateBtn bgTransparent" *ngIf="data.Approval == 'S'"
+                                    (click)="onEditGetExercise(data)">
+                                    Edit
+                                  </button>
+                                  <button ion-button color="theme-button" outline
+                                    class="custSmallBtn recalculateBtn bgTransparent" *ngIf="data.Approval == 'S'"
+                                    (click)="openConfirmAlert(i, data)">
+                                    Discard
+                                  </button>
+                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'I'"
+                                    (click)="recalculate(i, data)" class="recalculateBtn bgTransparent">
+                                    Recalculate
+                                  </button>
+                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'Q'"
+                                    (click)="completeDocumentProcedure(data)" class="recalculateBtn bgTransparent">
+                                    Payment Pending
+                                  </button>
+                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'D'"
+                                    (click)="completeDocumentProcedure(data)" class="recalculateBtn bgTransparent">
+                                    Upload Documents
+                                  </button>
+                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'O'"
+                                    (click)="completeDocumentProcedure(data)" class="recalculateBtn bgTransparent">
+                                    Resubmit Details
+                                  </button>
+
+                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'P'"
+                                    (click)="viewPaymentDetail(data)">
+                                    VPD
+                                  </button>
+                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'P'"
+                                    (click)="viewPaymentDetail(data)">
+                                    AF
+                                  </button>
+                                  <button ion-button color="theme-button" outline *ngIf="data.Approval == 'P'"
+                                    (click)="viewPaymentDetail(data)">
+                                    FC
+                                  </button>
+
+                                </ion-item>
+                              </ion-row>
+                            </ion-card>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </ion-row>
+                  </ion-card>
+                </ion-grid>
+              </form>
+            
+            </mat-step>
+
+            <mat-step>
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>
+                  <ion-icon name="stats" style="margin-right: 9px;"></ion-icon>Exercise
+                </ng-template>
+                <!-- <div class="hide-only-xs hide-only-sm"> -->
+                <ion-grid class="hide-only-xs hide-only-sm exerciseSecondTab" no-padding>
+                  <ion-card class="FMVCalculatorBlock">
+                    <ion-card-header>
+                      <ion-row>
+                        <ion-col col-2 *ngIf="analysisDetail">
+                          <h3 class="hdrText">FMV : <span class="hdrValue">{{ analysisDetail.MarketPrice }}</span></h3>
+                        </ion-col>
+                        <ion-col col-2 *ngIf="analysisDetail">
+                          <h3 class="hdrText">FMV Date: <span class="hdrValue">{{analysisDetail.FMVDate | date:
+                              "dd-MMM-yyyy" }}</span></h3>
+                        </ion-col>
+                      </ion-row>
+                    </ion-card-header>
+                    <div class="grantBlockList" padding="">
+                      <ion-row>
+                        <div class="example-container tbl_New_Layout rsuGrantListTable mainDataTable">
+                          <div class="table-container">
+                            <table mat-table [dataSource]="multiSelectedExerciseArr" class="lessons-table">
+                              <ng-container matColumnDef="SchemeName" sticky>
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Grant Name
+                                </th>
+                                <td mat-cell *matCellDef="let element" text-center>
+                                  {{ element.SchemeName }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef text-center class="footerCelBg1"><b>Total</b></td>
+                              </ng-container>
+                              <ng-container matColumnDef="GrantOptionId">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Grant Option ID
+                                </th>
+                                <td mat-cell *matCellDef="let element" text-center>
+                                  {{ element.SchemeCode }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef text-center class="footerCelBg1"></td>
+                              </ng-container>
+                              <ng-container matColumnDef="OptionsGranted" class="right-number">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Options Granted
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.OptionsGranted || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg1" text-center>
+                                  {{summation(multiSelectedExerciseArr,'OptionsGranted')}}
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="UnvestedOptions">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Options Unvested
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.UnvestedOptions || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg1" text-center>
+                                  {{summation(multiSelectedExerciseArr,'UnvestedOptions')}}
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="Exerciseable">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Vested & Exercisable
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.Exerciseable || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg1" text-center>
+                                  {{summation(multiSelectedExerciseArr,'Exerciseable')}}
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="MinimumOptions">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Minimum Options
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.MinimumOptions || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg1" text-center>
+                                  <!-- {{summation(multiSelectedExerciseArr,'Exerciseable')}} -->
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="OptionsOpted">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Options Exercised
+                                </th>
+                                <td mat-cell *matCellDef="let element; let i = index" class="center-number">
+                                  <!-- {{ element.OptionsOpted || 0 }} -->
+                                  <mat-form-field class="inpBox" floatLabel="never">
+                                    <input matInput maxlength="6" class="alignR" onpaste="return false;"
+                                      placeholder="Enter No. of Options"
+                                      [(ngModel)]="multiSelectedExerciseArr[i].OptionsOpted"
+                                      [ngModelOptions]="{ standalone: true }" (keypress)="isNumber()"
+                                      (input)="optionsOptedChange(i)" required
+                                      [disabled]="calculateDetails.length>0 || element.isBonus"
+                                      (keypress)="isNumber($event)" />
+                                  </mat-form-field>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg2" text-center>
+                                  <b> {{summation(multiSelectedExerciseArr,'OptionsOpted')}}</b>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="ExercisePrice">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Exercise Price
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number " text-center>
+                                  {{ element.ExercisePrice || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg2" text-center>
+                                  <b>
+                                    <!-- {{summation(multiSelectedExerciseArr,'ExercisePrice')}} -->
+                                  </b>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="ExerciseAmount">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Exercise Amount
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.ExerciseAmount || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg2" text-center>
+                                  <b> {{summation(multiSelectedExerciseArr,'ExerciseAmount')}}</b>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="PerquisiteValue">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Perquisite Value
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.PerquisiteValue || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg2" text-center>
+                                  <b> {{summation(multiSelectedExerciseArr,'PerquisiteValue')}}</b>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="PerquesiteTax">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Perquisite Tax
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.PerquesiteTax || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg2" text-center>
+                                  <b> {{summation(multiSelectedExerciseArr,'PerquesiteTax')}}</b>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="NetProfit">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Notional Gain
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.NetProfit || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg2" text-center>
+                                  <b> {{summation(multiSelectedExerciseArr,'NetProfit')}}</b>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="Tax">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Applicable Tax Slab
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.Tax || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg2" text-center>
+                                  <b>
+                                    <!-- {{summation(multiSelectedExerciseArr,'Tax')}} -->
+                                  </b>
+                                </td>
+                              </ng-container>
+                              <tr mat-header-row *matHeaderRowDef="multiSelectedExerciseColumns;sticky: true"></tr>
+                              <tr mat-row *matRowDef="let row; columns: multiSelectedExerciseColumns"></tr>
+                              <tr mat-footer-row *matFooterRowDef="multiSelectedExerciseColumns;sticky: true"></tr>
+                            </table>
+                          </div>
+                        </div>
+                      </ion-row>
+                      <ion-row class="calculateBtnBlock">
+                        <ion-col col-2 class="justifyCenter" no-padding>
+                          <div matTooltipClass="tooltipcls" [matTooltip]="
+                                        checkCalculateDisable()
+                                          ? 'Please enter No. of Options for all the selected grants.'
+                                          : ''" class="disabledTooltip m-r-5" style="width: 100%;">
+                            <div class="solidBtnBlock" style="width: 100%;">
+                              <button ion-button color="gray-border-button" outline (click)="resetCalculation()"
+                                [disabled]="checkCalculateDisable()" class="customBtnNew fullWidthBtn borderDarkGray">
+                                Reset
+                              </button>
+                            </div>
+                          </div>
+                          <div matTooltipClass="tooltipcls" [matTooltip]="
+                                              checkCalculateDisable()
+                                                ? 'Please enter No. of Options for all the selected grants.'
+                                                : ''" class="disabledTooltip" style="width: 100%;">
+                            <div class="solidBtnBlock" style="width: 100%;">
+                              <button ion-button color="darkGray-solid-button" outline (click)="ValidateCalculation()"
+                                [disabled]="checkCalculateDisable()" class="customBtnNew fullWidthBtn bgDarkGray">
+                                Calculate
+                              </button>
+                            </div>
+                          </div>
+                        </ion-col>
+                        <ion-col *ngIf="calculateDetails.length>0 && calculateDetails[0].TaxRateChange">
+                          <div style="font-size: 1.3rem;" class="grantError">
+                            {{calculateDetails[0].TaxChangeMessage}}
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                    </div>
+                    <ion-footer padding *ngIf="finalArrayNew.length>0 && !closureWindow && !isOnHold">
+                      <ion-row>
+                        <ion-col>
+                          <div class="solidBtnBlock m-r-10" style="display: inline-block;">
+                            <button ion-button color="theme-button" outline (click)="clearForm('secondTab')"
+                              class="customBtnNew fullWidthBtn"> Back
+                            </button>
+                          </div>
+
+                          <div *ngIf="EnableLink" matTooltipClass="tooltipcls" [matTooltip]="
+                                         calculateDetails?.length <= 0
+                                           ? 'Please calculate your options first'
+                                           : ''
+                                       " style="display: inline-block;float: right;">
+                            <div class="solidLongBlock">
+                              <button class="ButtonSave customBtnNew fullWidthBtn" ion-button outline
+                                color="theme-solid-button" [disabled]="calculateDetails?.length <= 0"
+                                (click)="ApplyForPreclearanceDetailsNew()">
+                                Apply For Pre-Clearance</button>
+                            </div>
+                          </div>
+
+                          <div *ngIf="ProceedFurther" matTooltipClass="tooltipcls" [matTooltip]="
+                                         calculateDetails?.length <= 0
+                                           ? 'Please calculate your options first'
+                                           : ''
+                                       " style="display: inline-block; float:right;">
+                            <div class="solidBtnBlock">
+                              <button class="ButtonSave customBtnNew fullWidthBtn" ion-button outline
+                                color="theme-solid-button" [disabled]="calculateDetails?.length <= 0"
+                                (click)="confirmDematDetailsNew()">
+                                Exercise</button>
+                            </div>
+                          </div>
+                          <div *ngIf="ProceedFurther" matTooltipClass="tooltipcls" [matTooltip]="
+                                          currentExercise.Approval=='S' ? 'Already Saved' :
+                                          calculateDetails?.length <= 0
+                                            ? 'Please calculate your options first'
+                                            : ''
+                                        " style="display: inline-block;float: right;" class="m-r-10">
+                            <div class="solidBtnBlock">
+                              <button class="ButtonSave customBtnNew fullWidthBtn" ion-button outline
+                                color="theme-button" ma (click)="onExerciseSubmit('S')"
+                                [disabled]="calculateDetails?.length <= 0 || currentExercise.Approval=='S'">
+                                Save</button>
+                            </div>
+                          </div>
+
+                        </ion-col>
+
+                      </ion-row>
+                    </ion-footer>
+                    <div class="grantCalTab" style="display: none;">
+
+                      <ion-row class="paddingCust">
+                        <ion-col>
+                          <div class="example-container tbl_New_Layout rsuGrantListTable mainDataTable">
+                            <table mat-table [dataSource]="multiSelectedExerciseArr" class="lessons-table">
+                              <ng-container matColumnDef="SchemeName" sticky>
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Grant Name
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                  {{ element.SchemeName || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef>Total</td>
+                              </ng-container>
+                              <ng-container matColumnDef="GrantOptionId">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Grant Option ID
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                  {{ element.SchemeCode || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef></td>
+                              </ng-container>
+                              <ng-container matColumnDef="OptionsGranted" class="right-number">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Options Granted
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.OptionsGranted || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'OptionsGranted')}}
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="UnvestedOptions">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Options Unvested
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.UnvestedOptions || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'UnvestedOptions')}}
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="Exerciseable">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Vested & Exercisable
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.Exerciseable || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'Exerciseable')}}
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="MinimumOptions">
+                                <th mat-header-cell *matHeaderCellDef text-center>
+                                  Minimum Options
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number" text-center>
+                                  {{ element.MinimumOptions || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number footerCelBg1" text-center>
+                                  <!-- {{summation(multiSelectedExerciseArr,'Exerciseable')}} -->
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="OptionsOpted">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Options Exercised
+                                </th>
+                                <td mat-cell *matCellDef="let element; let i = index" class="right-number">
+                                  <!-- {{ element.OptionsOpted || 0 }} -->
+                                  <mat-form-field class="inpBox">
+                                    <input matInput maxlength="4" class="alignR" type="number" onpaste="return false;"
+                                      placeholder="Enter No. of Options"
+                                      [(ngModel)]="multiSelectedExerciseArr[i].OptionsOpted"
+                                      [ngModelOptions]="{ standalone: true }" (keypress)="isNumber()"
+                                      (input)="optionsOptedChange(i)" required
+                                      [disabled]="calculateDetails.length>0 || element.isBonus" />
+                                  </mat-form-field>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'OptionsOpted')}}
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="ExercisePrice">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Exercise Price
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.ExercisePrice || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  <!-- {{summation(multiSelectedExerciseArr,'ExercisePrice')}} -->
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="ExerciseAmount">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Exercise Amount
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.ExerciseAmount || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'ExerciseAmount')}}
+                              </ng-container>
+                              <ng-container matColumnDef="PerquisiteValue">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Perquisite Value
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.PerquisiteValue || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'PerquisiteValue')}}
+                              </ng-container>
+                              <ng-container matColumnDef="PerquesiteTax">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Perquesite Tax
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.PerquesiteTax || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'PerquesiteTax')}}
+                              </ng-container>
+                              <ng-container matColumnDef="NetProfit">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Notional Gain
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.NetProfit || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  {{summation(multiSelectedExerciseArr,'NetProfit')}}
+                              </ng-container>
+                              <ng-container matColumnDef="Tax">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  Applicable Tax Slab
+                                </th>
+                                <td mat-cell *matCellDef="let element" class="right-number">
+                                  {{ element.Tax || 0 }}
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef class="right-number">
+                                  <!-- {{summation(multiSelectedExerciseArr,'Tax')}} -->
+                              </ng-container>
+                              <tr mat-header-row *matHeaderRowDef="multiSelectedExerciseColumns;sticky: true"></tr>
+                              <tr mat-row *matRowDef="let row; columns: multiSelectedExerciseColumns"></tr>
+                              <tr mat-footer-row *matFooterRowDef="multiSelectedExerciseColumns"></tr>
+                            </table>
+                          </div>
+                        </ion-col>
+                        <ion-col col-12 class="justifyCenter" no-padding>
+                          <div matTooltipClass="tooltipcls" [matTooltip]="
+                              checkCalculateDisable()
+                                ? 'Please enter No. of Options for all the selected grants.'
+                                : ''" class="disabledTooltip m-r-10">
+                            <button ion-button color="theme-button" outline style="width: 100px;"
+                              (click)="resetCalculation()">
+                              Reset
+                            </button>
+                          </div>
+                          <div matTooltipClass="tooltipcls" [matTooltip]="
+                                  checkCalculateDisable()
+                                    ? 'Please enter No. of Options for all the selected grants.'
+                                    : ''" class="disabledTooltip m-r-10">
+                            <button ion-button color="theme-button" outline style="width: 100px;"
+                              (click)="ValidateCalculation()" [disabled]="checkCalculateDisable()">
+                              Calculate
+                            </button>
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                    </div>
+                  </ion-card>
+
+                  <!--<ion-card>
+  
+                    </ion-card>-->
+                  <ion-card class="whatIfAnalysisCard" style="margin-bottom: 0px !important;display:none;">
+                    <ion-row no-padding align-items-center style="padding: 0px 10px 0px 10px !important;"
+                      class="stepPanelHeader">
+                      <ion-item style="margin-bottom: -10px;">
+                        <p class="whatif">What if Analysis</p>
+                      </ion-item>
+                    </ion-row>
+                    <ion-row no-padding align-items-center style="padding: 0px 10px 0px 10px !important;"
+                      class="stepPanelHeader">
+
+                      <ion-col col-lg-4>
+                        <ion-item>
+                          <ion-row *ngIf="analysisDetail">
+                            <span style="color: #b3adad;">FMV: </span>
+                            <span>{{ analysisDetail.MarketPrice }}</span>
+                          </ion-row>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-lg-6>
+                        <ion-item>
+                          <ion-row *ngIf="analysisDetail">
+                            <span style="color: #b3adad;">FMV Date: </span>
+                            <span>{{
+                              analysisDetail.FMVDate | date: "dd-MMM-yyyy"
+                              }}</span>
+                          </ion-row>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-lg-2>
+                        <div matTooltipClass="tooltipcls" [matTooltip]="
+                              !noOfOptionValue
+                                ? 'Please enter No. of Options'
+                                : ''
+                            " class="disabledTooltip">
+                          <button ion-button color="theme-button" outline style="width: 100px;"
+                            (click)="calculateAnalysisDeatils()" [disabled]="noOfOptionValue <= 0">
+                            Calculate
+                          </button>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="paddingCust">
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight">
+                          <p matTooltipClass="tooltipcls" matTooltip="Grant Option ID">
+                            Grant Option ID
+                          </p>
+                          <h2>{{ detailsObj.GrantOptionId || 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight">
+                          <p matTooltipClass="tooltipcls" matTooltip="Options you are granted">
+                            Options Granted
+                          </p>
+                          <h2>
+                            {{ detailsObj.OptionsGranted || 0 }}
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.OptionsGranted_B || 0
+                              }}</span>
+                          </h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight">
+                          <p matTooltipClass="tooltipcls" matTooltip="Options you have vested">
+                            Vested Options
+                          </p>
+                          <h2>
+                            {{ detailsObj.VestedOptions || 0 }}
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.VestedOptions_B || 0
+                              }}</span>
+                          </h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight">
+                          <p matTooltipClass="tooltipcls" matTooltip="Options you can exercise">
+                            Exercisable Options
+                          </p>
+                          <h2>
+                            {{ detailsObj.Exerciseable || 0 }}
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.Exerciseable_B || 0
+                              }}</span>
+                          </h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight">
+                          <p matTooltipClass="tooltipcls" matTooltip="Exercise Price">
+                            Exercise Price
+                          </p>
+                          <h2>{{ detailsObj.ExercisePrice || 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight">
+                          <p matTooltipClass="tooltipcls" matTooltip="Bonus Price">
+                            Bonus Price
+                          </p>
+                          <h2>{{ 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight">
+                          <p matTooltipClass="tooltipcls" matTooltip="Options you have not yet vested">
+                            Unvested Options
+                          </p>
+                          <h2>
+                            {{ detailsObj.UnvestedOptions || 0 }}
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.UnvestedOptions_B || 0
+                              }}</span>
+                          </h2>
+                        </ion-item>
+                      </ion-col>
+
+                      <ion-col col-xl-2 col-lg-4 col-md-4 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards blockHeight"
+                          style="  border-right: 1px solid #eee !important;">
+                          <mat-form-field class="inpBox">
+                            <input matInput maxlength="4" onpaste="return false;" placeholder="Enter No. of Options"
+                              [(ngModel)]="noOfOptionValue" [ngModelOptions]="{ standalone: true }"
+                              (keypress)="isNumber()" (change)="calculateDetails = []" required />
+                          </mat-form-field>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row class="paddingCust calculateDataBlock" *ngFor="let datils of calculateDetails">
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards">
+                          <p matTooltipClass="tooltipcls" matTooltip="Exercise Amount">
+                            Exercise Amount
+                          </p>
+                          <h2>{{ datils.OptionPrice || 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards">
+                          <p matTooltipClass="tooltipcls" matTooltip="Perquisite Value">
+                            Perquisite Value
+                          </p>
+                          <h2>{{ roundOf(datils.PerquisiteValue) || 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards">
+                          <p matTooltipClass="tooltipcls" matTooltip="Perquisite Tax">
+                            Perquisite Tax
+                          </p>
+                          <h2>{{ roundOf(datils.PerquesiteTax) || 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards" style="  border-right: 1px solid #eee !important;">
+                          <p matTooltipClass="tooltipcls" matTooltip="Notional Gain">
+                            Notional Gain
+                          </p>
+                          <h2>{{ roundOf(datils.NetProfit) || 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 no-padding>
+                        <ion-item class="exerciseDeatilCards" style="  border-right: 1px solid #eee !important;">
+                          <p matTooltipClass="tooltipcls" matTooltip="Applicable Tax Slab">
+                            Applicable Tax Slab
+                          </p>
+                          <h2>{{ datils.Tax || 0 }}</h2>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+
+                  </ion-card>
+                  <!--<ion-card>
+  
+                    </ion-card>-->
+                </ion-grid>
+                <!-- </div> -->
+                <div class="fixedBlockouter hide-only-xs hide-only-sm" style="display: None;">
+                  <ion-row align-items-center justify-content-center padding class="" style="">
+                    <ion-col text-center>
+                      <button ion-button color="theme-button" outline class="custBtn" (click)="clearForm('secondTab')">
+                        Back
+                      </button>
+                      <div matTooltipClass="tooltipcls" [matTooltip]="
+                          calculateDetails?.length <= 0
+                            ? 'Please calculate your options first'
+                            : ''
+                        " style="display: inline-block;">
+                        <button ion-button color="theme-button" outline class="custBtn" (click)="onExerciseSubmit('S')"
+                          [disabled]="calculateDetails?.length <= 0">
+                          Save
+                        </button>
+                      </div>
+                      <div matTooltipClass="tooltipcls" [matTooltip]="
+                          calculateDetails?.length <= 0
+                            ? 'Please calculate your options first'
+                            : ''
+                        " style="display: inline-block;">
+                        <button ion-button color="theme-button" outline class="custBtn"
+                          [disabled]="calculateDetails?.length <= 0" (click)="confirmDematDetailsNew()">
+                          Exercise
+                        </button>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <ion-grid class="hide-only-md hide-only-lg hide-only-xl mobileViewDesign">
+                  <ion-card class="exerciseGrant">
+                    <ion-row>
+                      <ion-col col-12 no-padding>
+                        <ion-item class="schemeHeader">
+                          {{ statusSelect.SchemeName }}
+
+                        </ion-item>
+                        <span>
+
+                          <ion-icon class="icon" name="prefix-tableViewIcon" matTooltip="View"
+                            (click)="openGrantDetails(statusSelect, i)" class="infoIcon"
+                            style="position: absolute;right: 10px; top: 25%;font-size: 21px;"></ion-icon>
+                        </span>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Vested Lapsed Date</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b *ngIf="detailsObj.LapseDate">{{
+                              (detailsObj.LapseDate | date: "dd-MMM-yyyy") ||
+                              "-"
+                              }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Exercise Price</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ detailsObj.ExercisePrice || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card>
+                  <ion-card class="analysisDeatil">
+                    <ion-row>
+                      <ion-col col-12 no-padding>
+                        <ion-item class="analysisHdr">
+                          <p class="whatif">What if Analysis</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item class="analysisHdr" *ngIf="analysisDetail">
+                          <ion-row>
+                            <span style="color: #b3adad;">FMV: </span>
+                            <span>{{ analysisDetail.MarketPrice }}</span>
+                          </ion-row>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item class="analysisHdr" *ngIf="analysisDetail">
+                          <ion-row *ngIf="analysisDetail">
+                            <span style="color: #b3adad;">FMV Date: </span>
+                            <span>{{
+                              analysisDetail.FMVDate | date: "dd-MMM-yyyy"
+                              }}</span>
+                          </ion-row>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Grant Option ID</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item class="lineClampText">
+                          <p>
+                            <b>{{ detailsObj.GrantOptionId || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Options Granted</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ detailsObj.OptionsGranted || 0 }}</b>
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.OptionsGranted_B || 0
+                              }}</span>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Vested Options</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ detailsObj.VestedOptions || 0 }}</b>
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.VestedOptions_B || 0
+                              }}</span>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Exerciseable Options</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ detailsObj.Exerciseable || 0 }}</b>
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.Exerciseable_B || 0
+                              }}</span>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Exercise Price</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ detailsObj.ExercisePrice || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Bonus Price</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Unvested Options</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ detailsObj.UnvestedOptions }}</b>
+                            <span *ngIf="detailsObj.BonusDate" class="bonus-badge">+{{ detailsObj.UnvestedOptions_B || 0
+                              }}</span>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>No. of Options</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item class="noOfOption">
+                          <mat-form-field>
+                            <input matInput minlength="20" maxlength="20" placeholder="Enter No. of Options"
+                              [(ngModel)]="noOfOptionValue" [ngModelOptions]="{ standalone: true }"
+                              (keypress)="isNumber()" (change)="calculateDetails = []" type="number" required />
+                          </mat-form-field>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-12 no-padding>
+                        <div matTooltipClass="tooltipcls" [matTooltip]="
+                            !noOfOptionValue
+                              ? 'Please enter No. of Options'
+                              : ''
+                          ">
+                          <button (click)="calculateAnalysisDeatils()" [disabled]="noOfOptionValue <= 0" ion-button
+                            color="theme-button" outline
+                            style="width: 100%;border: 0px;font-size: 14px !important;font-weight: 500 !important;">
+                            Calculate
+                          </button>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card>
+                  <ion-card class="analysisCalculation" *ngFor="let datils of calculateDetails">
+                    <ion-row>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Exercise Amount</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ datils.OptionPrice || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Perquisite Value</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ roundOf(datils.PerquisiteValue) || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Perquisite Tax</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ roundOf(datils.PerquesiteTax) || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Notional Gain</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ roundOf(datils.NetProfit) || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>Applicable Tax Slab</p>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col col-6 no-padding>
+                        <ion-item>
+                          <p>
+                            <b>{{ datils.Tax || 0 }}</b>
+                          </p>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card>
+                </ion-grid>
+                <ion-row class="hide-only-md hide-only-lg hide-only-xl mobileViewDesign mobMarginBottom">
+                  <ion-col no-padding text-center>
+                    <button ion-button color="theme-button" outline class="custBtn" (click)="clearForm('secondTab')">
+                      Back
+                    </button>
+                    <div matTooltipClass="tooltipcls" [matTooltip]="
+                        calculateDetails?.length <= 0
+                          ? 'Please calculate your options first'
+                          : ''
+                      " style="display: inline-block;">
+                      <button (click)="onExercisesave('S')" [disabled]="calculateDetails?.length <= 0" ion-button
+                        color="theme-button" outline class="custBtn">
+                        Save
+                      </button>
+                    </div>
+                    <div matTooltipClass="tooltipcls" [matTooltip]="
+                        calculateDetails?.length <= 0
+                          ? 'Please calculate your options first'
+                          : ''
+                      " style="display: inline-block;">
+                      <button matStepperNext ion-button color="theme-button" outline class="custBtn"
+                        [disabled]="calculateDetails?.length <= 0" (click)="confirmDematDetails()">
+                        Exercise
+                      </button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </form>
+            </mat-step>
+
+            <mat-step>
+              <ng-template matStepLabel>
+                <ion-icon name="checkbox-outline" style="margin-right: 9px;"></ion-icon>Confirm
+              </ng-template>
+
+              <ion-grid class="hide-only-xs" class="confirmStep" no-padding>
+                <!-- [disabled]="detailsObj.Approval==='D' || detailsObj.Approval==='P'" -->
+                <ion-card class="fullBlockCard noShadow confirmTabBlock">
+
+                <div class="ap-tab">
+                  <div class="ap-tab-nav">
+                      <button class="ap-tab-ref" [disabled]="" (click)="moveConfirmStepper(0)" [ngClass]="{'active': stepper1?.selectedIndex >= 0}"> 
+                        <span class="ap-number">1</span> Exercise Details</button>
+                  </div>
+
+                  <div class="ap-tab-nav">
+                    <button class="ap-tab-ref" [disabled]="!(currentExercise?.Approval === 'Q' || currentExercise?.Approval === 'I' || currentExercise?.Approval === 'O')" 
+                    (click)="moveConfirmStepper(1)" [ngClass]="{'active': stepper1?.selectedIndex >= 1}"> <span class="ap-number">2</span> Payment Details</button>
+                  </div>
+
+                  <div class="ap-tab-nav">
+                      <button class="ap-tab-ref" [disabled]="currentExercise.Approval !== 'D'" (click)="moveConfirmStepper(2)" [ngClass]="{'active': stepper1?.selectedIndex === 2}">
+                        <span class="ap-number">3</span> Forms Submitted</button>
+                    </div>
+                </div>
+             
+                <div class="ap-tab-container"><!-- tab content start here -->
+                  <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 0"> <!-- first content tab-->
+                    <ng-container *ngIf="exerciseData">
+                      <div class="ap-scroll">
+                          <excercise-app-form (nextStep)="goPaymentStep($event)" [exerciseData] ="exerciseData" id="printform"></excercise-app-form>
+                      </div>
+                    </ng-container>
+                  </div>
+                  <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 1"> <!-- Second content tab-->
+                    <div class="d-flex" padding-vertical>
+                      <div class="min-150">
+                          <input type="radio" name="payment" (click)="showPopup(currentExercise,'cheque')" > Cheque/ DD
+                      </div>
+
+                      <div class="min-150">
+                        <input type="radio" name="payment"  (click)="showPopup(currentExercise,'utr')" [disabled]="currentExercise?.Approval === 'O' && !editPaymentFlag && exerciseData?.List_Exercise_Perquesite_Mode[0]?.isUTR == false"> Pay online ( NEFT / IMPS / RTGS )
+                      </div>
+
+                      <div class="min-150">
+                        <input type="radio" name="payment"  (click)="openPaymentGateway($event)" [disabled]="currentExercise?.Approval === 'O'"> Payment Gateway
+                      </div>
+                    </div>
+
+                      <ng-container *ngIf="paymentGatewayTab">
+                        <page-payu-money [excerciseDetails]="currentExercise"></page-payu-money>
+                      </ng-container>
+                  </div>
+
+                  <div class="ap-tab-content" *ngIf="stepper1?.selectedIndex === 2"><!-- third content tab-->
+                    <div padding-vertical>
+                      <div class="solidLongBtnBlock m-r-10" style="display: inline-block">
+                        <button ion-button color="theme-button" outline class="custSmallBtn"
+                          (click)="viewPaymentDetail(currentExercise)" matTooltipClass="tooltipcls"
+                          matTooltip="View payment details submitted" [disabled]="!documentOfflineSubmit">
+                          View Payment Details
+                        </button>
+                      </div>
+
+                      <div class="solidLongBtnBlock" style="display: inline-block">
+                        <button ion-button color="theme-button" outline class="custSmallBtn"
+                          matTooltipClass="tooltipcls" matTooltip="Preview & Save Application Form"
+                          (click)="applicationDownloadWarning($event)" [disabled]="!documentOfflineSubmit">
+                          Preview & Save Application Form
+                        </button>
+                      </div>
+                    </div>
+
+                    <ion-row class="paddingCust" style="padding:12px 10px;border-bottom: 1px dotted #dadada;">
+                      <mat-checkbox class="example-margin" [(ngModel)]="documentOfflineSubmit">Hereby, I declare
+                        that
+                        I will send my signed
+                        Application form and Cheques/DD to the Trust
+                        Office.</mat-checkbox>
+                    </ion-row>
+                    <ion-row class="paddingCust" style=" border-bottom: 1px dotted #dadada;">
+                      <ng-container *ngFor="let data of uploadedForms; let j = index">
+                        <ion-col col-3>
+                          <ion-item class="" no-padding>
+                            {{ data.FormName }}
+                            <span class="extension"> </span>
+                          </ion-item>
+                          <ion-item no-padding>
+                            <label ion-button icon-start clear small color="danger" padding style="border: 1px solid #f53d3d;
+                                              height: 30px !important;
+                                              width: 150px !important;
+                                              background-color: transparent !important;
+                                              padding: 0px;    text-transform: capitalize;">
+                              Upload Scanned Copy
+                              <!--  -->
+                              <input (change)="setFiles(data, $event, 1, j)" type="file" id="file"
+                                accept=".png, .jpg, .jpeg, .pdf" style="display: none;" />
+                            </label>
+                           
+                          </ion-item>
+                        </ion-col>
+                        <ion-col col-2>
+                          <ion-item>
+                            <!-- {{data.FileName}} FileName -->
+                            <div
+                              style="border: 1px solid #dadada; height: 120px; width: 100%; border-radius: 5px;padding: 10px;">
+                              <div class="file-preview-container" style="height: 100px;">
+                                <img [src]="getImagePreview(j)" alt="" />
+                              </div>
+
+                            </div>
+                          </ion-item>
+                          <div *ngIf="data?.fileTypeError == false" class="file-name-container">{{data?.fileName}}
+                          </div>
+
+                        </ion-col>
+                        <ion-col *ngIf="j==0" col-2 style="display: flex;justify-content: center;">
+                          <div class="file-preview-separator"></div>
+                        </ion-col>
+                      </ng-container>
+                    </ion-row>
+                  </div>
+                </div>
+
+                 
+                  <!-- <ion-footer padding *ngIf="finalArrayNew.length>0 && !closureWindow && !isOnHold">
+                    <ion-row align-items-center justify-content-center>
+                      <ion-col col-lg-12>
+                        <div class="solidBtnBlock" style="display: inline-block;">
+                          <button ion-button color="theme-button" outline (click)="backToSummary()"
+                            class="fullWidthBtn bgTransparent">
+                            Back
+                          </button>
+                        </div>
+                        <div class="solidBtnBlock" style="float: right;display: inline-block;">
+                          <button ion-button
+                            [ngClass]="{'exercise-confirm-btn': true, 'blink-border': exerciseConfirmAnimate && documentOfflineSubmit}"
+                            color="theme-solid-button" outline [disabled]="!documentOfflineSubmit"
+                            (click)="completeExercise()" class="bgThemeRed fullWidthBtn">
+                            Confirm
+                          </button>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-footer> -->
+                </ion-card>
+              </ion-grid>
+              <div style="display: none;">
+                <ion-row align-items-center justify-content-center padding>
+                  <ion-col text-center>
+                    <button
+                      [ngClass]="{'exercise-confirm-btn': true, 'blink-border': exerciseConfirmAnimate && documentOfflineSubmit}"
+                      ion-button color="theme-button" outline class="custBtn" [disabled]="!documentOfflineSubmit"
+                      (click)="completeExercise()">
+                      Confirm
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </ion-card>
+      </ion-col>
+      <ion-col col-12 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12
+        class="mobSmallScreenOpenPannels requestSummaryPanel xsbottomSpacing noRightPadding noLeftPadding"
+        style="display: none;">
+        <ion-card *ngIf="!requestSummaryObj && !utilityProvider.checkStatus"
+          class=" hide-only-xs hide-only-sm fullBlockCard ">
+          <ion-card-header class="stockPriceCardHeader">
+        
+            <ion-row>
+              <ion-col col-6 no-padding class="verticalCenter">
+                Stock Price Trend
+              </ion-col>
+              <ion-col col-6 no-padding text-right>
+                FMV: <span>&#x20b9;{{ FMVall?.FMV || "N/A" }}</span>
+
+                <p style="font-size: 1rem; color: #dc293f;">
+                  {{ FMVall?.FMVDate | date: "dd-MMM-yyyy" }}
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content class="esopStockRightPanel">
+            <stock-price [style.height.px]="200"></stock-price>
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="utilityProvider.checkStatus" class="fullBlockCard">
+          <ion-card-content class="esopStockRightPanel" no-padding>
+            <scheme-detail [details]="detailsObj"></scheme-detail>
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="requestSummaryObj && !utilityProvider.checkStatus" class="fullBlockCard">
+          <ion-card-content class="esopStockRightPanel" no-padding>
+            <!--<rejection-pannel [details]="cancelDetails"></rejection-pannel>-->
+            <ion-card class="cards-list-demo">
+              <ion-card-header>
+                Exercise Summary Details
+                <ion-icon ios="ios-close" md="md-close" float-right (click)="closeReqSummary()"></ion-icon>
+              </ion-card-header>
+              <ion-grid>
+
+                <ion-row>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        Request Number
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        <b>{{ requestSummaryObj.ExerciseNumber || 0 }}</b>
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        FMV
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        <b>{{ requestSummaryObj.MarketPrice || 0 }}</b>
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+
+
+                <ion-row>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        Exercise Date
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        <b>{{
+                          requestSummaryObj.Approval != "S"
+                          ? (requestSummaryObj.ExerciseDate
+                          | date: "dd-MMM-yyyy") || "-"
+                          : "-"
+                          }}</b>
+                        <!--<b  *ngIf='requestSummaryObj.Approval == "S"'>{{"-"}}</b>-->
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        Exercise Amt. Pay. Method
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        <b>{{
+                          requestSummaryObj.ExercisePaymentMethod || "-"
+                          }}</b>
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        Perq. Payment Method
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        <b>{{
+                          requestSummaryObj.PerquesitePaymentMethod || "-"
+                          }}</b>
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="remarkRowHeight">
+                  <ion-col col-6 col-md-6>
+                    <ion-item>
+                      <h2>
+                        Remarks
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6 col-md-6>
+                    <ion-item class="remarkBlock">
+                      <h2>
+                        <b>{{ requestSummaryObj.Remarks || "-" }}</b>
+                      </h2>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-12>
+                    <div class="rsuMainTable" id="rsuMainTable">
+                      <div class="example-container tbl_New_Layout rsuGrantListTable mainDataTable">
+                        <div class="table-container">
+                          <table mat-table class="lessons-table mat-elevation-z8"
+                            [dataSource]="requestSummaryObj['schemeItems']">
+                            <ng-container matColumnDef="SchemeCode" sticky>
+                              <th mat-header-cell *matHeaderCellDef>Scheme Name</th>
+                              <td mat-cell *matCellDef="let element">{{element.SchemeCode}}</td>
+                              <td mat-footer-cell *matFooterCellDef>Total</td>
+                            </ng-container>
+                            <ng-container matColumnDef="OptionsOpted">
+                              <th mat-header-cell *matHeaderCellDef>Options Exercised</th>
+                              <td mat-cell *matCellDef="let element">{{element.OptionsOpted}}</td>
+                              <td mat-footer-cell *matFooterCellDef class="right-number">
+                                {{summation(requestSummaryObj['schemeItems'], 'OptionsOpted') }}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="ExerciseAmount">
+                              <th mat-header-cell *matHeaderCellDef>Exercise Amount</th>
+                              <td mat-cell *matCellDef="let element">{{element.ExerciseAmount}}</td>
+                              <td mat-footer-cell *matFooterCellDef class="right-number">
+                                {{summation(requestSummaryObj['schemeItems'], 'ExerciseAmount') }}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="PerquesiteTax">
+                              <th mat-header-cell *matHeaderCellDef>Perquiste Tax</th>
+                              <td mat-cell *matCellDef="let element">{{element.PerquesiteTax}}</td>
+                              <td mat-footer-cell *matFooterCellDef class="right-number">
+                                {{summation(requestSummaryObj['schemeItems'], 'PerquesiteTax') }}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="PerquisiteValue">
+                              <th mat-header-cell *matHeaderCellDef>Perquiste Value</th>
+                              <td mat-cell *matCellDef="let element">{{element.PerquisiteValue}}</td>
+                              <td mat-footer-cell *matFooterCellDef class="right-number">
+                                {{summation(requestSummaryObj['schemeItems'], 'PerquisiteValue') }}</td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="exerciseSummaryColumns;sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: exerciseSummaryColumns;"></tr>
+                            <tr mat-footer-row *matFooterRowDef="exerciseSummaryColumns"></tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row class="remarkRowHeight">
+                  <ion-col col-6 col-md-6 *ngIf="requestSummaryObj?.FileNamesList.length >= 1" style="display: flex;">
+                    <ion-item>
+                      <a download="FILENAME.jpg" [href]="(requestSummaryObj?.FileNamesList)[0].FileName"
+                        target="_blank">
+                        <label ion-button icon-start clear small color="danger" (click)="DownloadDoc('applicationForm')"
+                          padding
+                          style="border: 1px solid #f53d3d;height: 30px !important; width: 150px !important; background-color: transparent !important; padding: 0px;    text-transform: capitalize;">
+                          Application Form
+                        </label>
+                      </a>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6 col-md-6 *ngIf="requestSummaryObj?.FileNamesList.length == 2" style="display: flex;">
+                    <ion-item class="remarkBlock">
+                      <a download="FILENAME.jpg" [href]="(requestSummaryObj?.FileNamesList)[1].FileName"
+                        target="_blank">
+                        <label ion-button icon-start clear small color="danger" padding (click)="DownloadDoc('FormC')"
+                          style="border: 1px solid #f53d3d;height: 30px !important; width: 150px !important; background-color: transparent !important; padding: 0px;    text-transform: capitalize;">
+                          Form C
+                        </label>
+                      </a>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>  

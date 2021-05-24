@@ -1,0 +1,2363 @@
+page-exercise-now-multi {
+ 
+  font-family: "Lato-Regular";
+  .grantFirstTab {
+    padding: 0px;
+  }
+  .custEllipsis {
+    text-overflow: ellipsis;
+    white-space: initial;
+  }
+  .mat-tab-list {
+    background: #fff;
+  }
+  .side-label {
+    text-align: left;
+  }
+  .text-center {
+    text-align: center;
+  }
+  /* application form */
+  h2 {
+    text-overflow: ellipsis;
+    display: inline;
+  }
+  .item-inner {
+    ion-label {
+      width: 100%;
+      display: block;
+    }
+  }
+  .stockPriceCard {
+    border-bottom: 1px solid #e1e1e1;
+  }
+  .statusRemarks {
+    text-overflow: ellipsis;
+    display: inline;
+  }
+  .statusRemarksMobile {
+    font-size: 14px;
+    text-overflow: ellipsis;
+    display: inline;
+  }
+  .autoScroll {
+    overflow-y: auto;
+    max-height: 100%;
+  }
+  .arrow {
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+  .statusApproved {
+    color: color($colors, statusApproved);
+  }
+  .inpBox {
+    width: 70% !important;
+  }
+  .inpBox .mat-input-placeholder {
+    font-weight: bold;
+    color: #444;
+  }
+  .statusPending {
+    color: $statusPending;
+  }
+  .statusReject {
+    color: color($colors, statusReject);
+  }
+  .statusHold {
+    color: color($colors, statusHold);
+  }
+  .statusDraft {
+    color: color($colors, statusDraft);
+  }
+  .statusPaymentDone {
+    color: color($colors, statusPaymentDone);
+  }
+  mat-focused .mat-form-field-label {
+    color: #ee6e73;
+  }
+  .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+    background: #ee6e73;
+  }
+
+  hr {
+    background-color: rgba(0, 0, 0, 0.08);
+    height: 1px;
+    width: 100%;
+  }
+  .disabledTooltip {
+    width: 150px;
+    float: right;
+    height: 3.6rem;
+  }
+  .currentyear {
+    border: 1px solid #ee3147 !important;
+  }
+  .whatIfAnalysisCard {
+    .mat-form-field-infix {
+      margin-top: 23px;
+      .mat-form-field-label-wrapper {
+        // font-size: 1.2em;
+      }
+    }
+  }
+  .vrow {
+    margin-bottom: 15px;
+
+    ion-col:hover {
+      //border: 1px solid #ee3147;
+    }
+
+    ion-col {
+      cursor: pointer;
+      border: 1px solid whitesmoke;
+      padding: 20px 10px !important;
+      text-align: center;
+      position: relative;
+      left: 4%;
+      font-size: 12px;
+      line-height: 2px;
+    }
+  }
+
+  ion-content {
+    .scroll-content {
+      ion-grid {
+        // margin-bottom: 10px;
+
+        ion-row {
+          ion-col {
+            ion-card {
+              ion-card-content {
+                padding-bottom: 15px;
+              }
+            }
+          }
+        }
+      }
+
+      ion-row {
+        ion-col {
+          ion-card {
+            .schemeheader {
+              padding: 10px 15px;
+              border-bottom: 1px solid whitesmoke;
+              width: 96%;
+              margin-left: 2%;
+
+              b {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .webSelect {
+      .mat-form-field-underline {
+        background-color: transparent !important;
+      }
+    }
+
+    .rightPannel {
+      ion-grid {
+        ion-col {
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
+
+  ion-app {
+    ion-modal {
+      .modal-wrapper {
+        left: auto;
+        top: 55px !important;
+        position: absolute;
+        width: 375px !important;
+        height: 500px !important;
+        right: 0;
+      }
+    }
+  }
+
+  page-scheme-details {
+    .scroll-content {
+      padding: 0;
+    }
+  }
+
+  .bgConatiner {
+    background-color: $theme-container-bg !important;
+  }
+  .fab-md,
+  .fab-ios {
+    background-color: #ee3147 !important;
+  }
+  .fab {
+    margin: 8px 8px 50px 8px !important;
+  }
+  .footerBtn {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 91% !important;
+    margin: 10px auto !important;
+  }
+  /* Breadcrups CSS */
+  .mat-horizontal-stepper-header-container .mat-step-header:after,
+  .mat-horizontal-stepper-header-container .mat-step-header:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: -17px;
+    width: 0;
+    height: 0;
+    border-top: 19px solid transparent;
+    border-bottom: 21px solid transparent;
+    border-left: 18px solid #ffffff;
+    z-index: 2;
+    transition: border-color 0.2s ease;
+  }
+  // .scroll-content ion-grid{
+  //     height: calc(87vh - 31px);
+  // }
+  .mat-tab-body-wrapper {
+    // height: 67vh;
+    // padding: 20px 0 20px 0;
+  }
+  .RequestTabLeft {
+    height: calc(81vh - 31px);
+    overflow-y: scroll;
+  }
+
+  .mat-horizontal-stepper-header-container .mat-step-header:before {
+    right: auto;
+    left: 0;
+    border-left: 19px solid #f5f5f5;
+    z-index: 0;
+  }
+
+  .mat-horizontal-stepper-header-container .mat-step-header:first-child:before {
+    border: none;
+  }
+  // css for triangle
+
+  .mat-stepper-horizontal-line {
+    display: none !important;
+  }
+  .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+  }
+  .exercisePannel {
+    .custBtn {
+      height: 30px !important;
+      width: 100px !important;
+      background-color: transparent !important;
+    }
+    //   .exerciseSecondTab{
+    //     .mat-form-field-wrapper{
+    //         padding-bottom: 0px !important;
+    //     }
+    //   }
+    .seprator {
+      border: 0.7px dotted #78787b;
+      margin-bottom: 20px;
+    }
+    .card-md,
+    .card-ios {
+      // margin: 0px 0px 20px 0px !important;
+      width: 100% !important;
+      margin: 0px !important;
+    }
+    .stepPanelHeader {
+      padding: 0px 5px !important;
+      h2 {
+        font-size: 13px;
+        font-weight: 500;
+      }
+    }
+
+    box-shadow: none !important;
+
+    .mat-stepper-horizontal,
+    .mat-stepper-vertical {
+      background-color: #f5f5f5 !important;
+
+      .mat-horizontal-stepper-header {
+        height: 39px;
+        width: 29.1%;
+        background-color: #ffffff;
+        margin: 0 3px;
+        padding: 0px 10px 0px 30px;
+        overflow: visible !important;
+        -webkit-box-shadow: 0 3px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-family: "Lato-Regular";
+        margin-left: 0px;
+
+        //  box-shadow: 0 6px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.08);
+      }
+      //  .mat-horizontal-content-container{
+      //     background: #fff;
+      //     box-shadow: 0 2px 5px rgba(0,0,0,.14);
+      // }
+    }
+    .mat-horizontal-stepper-header-container {
+      margin-bottom: 16px;
+      height: 39px !important;
+
+      // position: fixed;
+      // width: 63%;
+      // z-index: 999;
+      // border: 1px solid whitesmoke;
+    }
+    .mat-horizontal-content-container {
+      padding: 0px;
+
+      // position: relative;
+      // top: 42px;
+    }
+    .right-number {
+      text-align: right;
+    }
+    .center-number {
+      text-align: center;
+    }
+
+    .infoIcon {
+      color: #2d3c50;
+      // float: right;
+      // margin: 15px 0px 0px 0px;
+    }
+    .grantFirstTab,
+    .exerciseSecondTab {
+      mat-form-field {
+        // width: 100% !important;
+      }
+      .label-md {
+        margin: 0px !important;
+      }
+      .paddingCust {
+        padding: 10px 10px !important;
+        ion-col {
+          border-right: 1px solid #eee;
+        }
+        .m-b-5 {
+          margin-bottom: 5px;
+        }
+      }
+      .paddingCust ion-col:nth-of-type(1) {
+        border-left: 1px solid #eee;
+      }
+      .paddingCust ion-col:nth-of-type(7n) {
+        border-left: 1px solid #eee;
+      }
+      .summaryBlock [col-lg-2] {
+        flex: 0 0 11.84% !important;
+        width: 11.84% !important;
+        max-width: 11.84% !important;
+      }
+      .exerciseDeatilCards.twoBtns {
+        .item-inner {
+          padding: 0px !important;
+        }
+      }
+      .exerciseDeatilCards {
+        height: 100%;
+        border-left: 1px solid #eee !important;
+        border-radius: 0px !important;
+        // border-left: 1px solid #eee !important;
+        border-bottom: 1px solid #eee !important;
+        padding: 5px !important;
+        margin-bottom: 0px !important;
+
+        p {
+          font-size: 12px;
+          font-weight: 400;
+          color: #999999;
+          font-family: "Lato-Regular";
+          margin-bottom: 6px;
+        }
+        h2 {
+          font-size: 12.5px;
+          font-weight: 500;
+          color: #444;
+          font-family: "Lato-Regular";
+        }
+        ion-label {
+          margin: 0px !important;
+        }
+        .custBtn {
+          /*width: 90px !important;*/
+          height: 30px !important;
+          margin-bottom: 0px !important;
+        }
+        .custSmallBtn {
+          width: 50px;
+          height: 30px !important;
+          margin-bottom: 0px !important;
+          margin-bottom: 0px !important;
+        }
+      }
+    }
+
+    .excercisedInput ion-item .item-inner {
+      border-bottom: 1px solid #dedede !important;
+    }
+    .simulationDeatilCards {
+      background: #f5f5f5;
+      border: 1px solid #eee;
+    }
+    .hangingPannel {
+      border: 1px solid #eee;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      width: 15%;
+      color: #ee3147;
+      font-size: 13px;
+      font-weight: 400;
+      float: right;
+      position: absolute;
+      top: -35px;
+      right: 0px;
+      min-height: 3.5rem !important;
+      ion-label {
+        text-align: center;
+        margin: 0px !important;
+      }
+    }
+    .simulationDeatilCards p:nth-child(1) {
+      margin-bottom: 10px;
+    }
+
+    .exnow {
+      border-left: 1px solid #eee;
+      ion-item {
+        ion-label {
+          button {
+            .mat-button-wrapper {
+              font-size: 14px !important;
+              ion-icon {
+                font-size: 16px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .schemeHeader {
+      margin-bottom: 0px !important;
+      background: #dfdfdf;
+      color: #2d3c50;
+      border-radius: 0px !important;
+      border: 0px !important;
+
+      ion-label {
+        color: #fff !important;
+        font-size: 14px !important;
+        font-weight: normal !important;
+        cursor: pointer;
+      }
+      ion-icon {
+        font-size: 22px !important;
+        cursor: pointer;
+      }
+      .mat-checkbox-background {
+        background-color: #fff !important;
+      }
+      .mat-checkbox-checkmark-path {
+        stroke: #646469 !important;
+      }
+      .mat-checkbox-inner-container {
+        height: 15px !important;
+        width: 15px !important;
+      }
+    }
+    .smallScreenHdr {
+      background: #646469 !important;
+      h2 {
+        color: #fff;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        margin-bottom: 0px;
+      }
+    }
+    #ClassHead {
+      ion-label {
+        color: #444 !important;
+      }
+    }
+    .smallScreenContainer {
+      ion-col {
+        border: 1px solid #e6e6e6 !important;
+      }
+      ion-item {
+        border-radius: 0px !important;
+        margin-bottom: 0px !important;
+      }
+      ion-item.hangingPannel {
+        border-top-left-radius: 5px !important;
+        border-top-right-radius: 5px !important;
+        min-height: 3.2rem !important;
+        text-align: center;
+      }
+      p {
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        b {
+          color: #333333 !important;
+        }
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .hangingPannel {
+      width: 45% !important;
+    }
+    .mat-tab-body-wrapper {
+      height: 100%;
+      overflow: hidden;
+    }
+    // .mat-stepper-horizontal{
+    //     background-color: #f5f5f5 !important;
+    // }
+    .hangingPannel {
+      top: -83px !important;
+      ion-label {
+        margin: 0px !important;
+      }
+    }
+    .mat-horizontal-content-container {
+      background: transparent !important;
+    }
+    .mat-horizontal-stepper-header-container
+      .mat-step-header:first-child:before {
+      display: none !important;
+    }
+    .mat-horizontal-stepper-header-container .mat-step-header:after,
+    .mat-horizontal-stepper-header-container .mat-step-header:before {
+      display: none !important;
+    }
+    .exercisePannel .mat-stepper-horizontal .mat-horizontal-stepper-header {
+      margin: 0px !important;
+      box-shadow: none !important;
+      padding: 0px !important;
+      width: 33.33%;
+      text-align: center;
+      border-right: 1px solid #eee;
+    }
+    .mat-step-label {
+      white-space: normal !important;
+    }
+  }
+  .mat-step-header .mat-step-icon {
+    display: none;
+  }
+  .mat-step-header .mat-step-icon-not-touched {
+    display: none;
+  }
+  .mat-step-header .mat-step-label {
+    //padding-top: 15px;
+
+    margin: auto !important;
+  }
+  form ion-item {
+    border: 0px !important;
+  }
+  .blockHeight {
+    height: 66px !important;
+  }
+
+  /* ----------- Galaxy S5  ----------- */
+  /* Portrait */
+  //@media (min-width: 360px) and (max-width: 640px) and (orientation: portrait) {
+  //   ion-grid{
+  //       padding: 0px !important;
+  //       ion-col{
+  //           padding: 0px !important;
+  //           ion-card{
+  //               margin: 0px !important;
+  //               width: 100% !important;
+  //
+  //               .mat-horizontal-content-container{
+  //                       padding: 0px !important;
+  //                       box-shadow:none !important;
+  //               }
+  //               .mat-horizontal-stepper-header{
+  //                   height: 50px !important;
+  //                   width: 22% !important;
+  //                   padding: 10px 10px 0px 30px !important;
+  //                   margin: 0 1px !important;
+  //
+  //                   ion-icon{
+  //                       display: block;
+  //                       text-align: center;
+  //                   }
+  //               }
+  //               .mat-horizontal-stepper-header-container .mat-step-header:after,
+  //               .mat-horizontal-stepper-header-container .mat-step-header:before {
+  //                 right: -25px;
+  //                 border-top: 35px solid transparent;
+  //                 border-bottom: 26px solid transparent;
+  //                 border-left: 25px solid #ffffff;
+  //             }
+  //
+  //               .mat-horizontal-stepper-header-container .mat-step-header:before {
+  //                  border-left: 27px solid #f5f5f5;
+  //                 }
+  //                 .footerRow{
+  //                   position: absolute;
+  //                   bottom: -211px;
+  //                   width: 100%;
+  //                   right: 0;
+  //                   left: 0;
+  //                   padding: 0px 10px;
+  //
+  //                   button{
+  //                       background-color: transparent !important;
+  //                   }
+  //                  }
+  //                  .exerciseSecondPanel{
+  //                   zoom: 0.91;
+  //                  }
+  //                  .hangingPannelContainer{
+  //                   margin-top: 55px;
+  //                  }
+  //                 .mat-horizontal-stepper-header-container{
+  //                   margin-top: 8px !important;
+  //                  }
+  //           }
+  //       }
+  //   }
+  //   .infoCard{
+  //       position: static !important;
+  //   }
+  //   .mobileViewDesign {
+  //    padding: 16px !important;
+  //    margin-bottom: 30px;
+  //   }
+  //   .mat-horizontal-content-container{
+  //       padding: 0px !important;
+  //   }
+  //   .mobSmallScreenOpenPannels{
+  //       position: fixed;
+  //       z-index: 9999;
+  //       height: 100%;
+  //   }
+  //
+  //
+  //}
+
+  /* ----------- iPhone 5 and  ----------- */
+  /* Portrait */
+  // @media only screen and (device-width: 320px) and (device-height: 568px) and (device-aspect-ratio: 40/71) {
+  //     ion-grid{
+  //         padding: 0px !important;
+  //         ion-col{
+  //             padding: 0px !important;
+  //             ion-card{
+  //                 margin: 0px !important;
+  //                 width: 100% !important;
+
+  //                 .mat-horizontal-content-container{
+  //                         padding: 16px !important;
+  //                         box-shadow:none !important;
+  //                 }
+  //                 .mat-horizontal-stepper-header{
+  //                     height: 50px !important;
+  //                     width: 22% !important;
+  //                     padding: 10px 10px 0px 30px !important;
+  //                     margin: 0 1px !important;
+
+  //                     ion-icon{
+  //                         display: block;
+  //                         text-align: center;
+  //                     }
+  //                 }
+  //                 .mat-horizontal-stepper-header-container .mat-step-header:after,
+  //                 .mat-horizontal-stepper-header-container .mat-step-header:before {
+  //                   right: -25px;
+  //                   border-top: 35px solid transparent;
+  //                   border-bottom: 26px solid transparent;
+  //                   border-left: 25px solid #ffffff;
+  //               }
+
+  //                 .mat-horizontal-stepper-header-container .mat-step-header:before {
+  //                    border-left: 27px solid #f5f5f5;
+  //                   }
+  //                   .footerRow{
+  //                     position: absolute;
+  //                     bottom: -144px;
+  //                     width: 100%;
+  //                     right: 0;
+  //                     left: 0;
+  //                     padding: 0px 10px;
+
+  //                     button{
+  //                         background-color: transparent !important;
+  //                     }
+  //                    }
+  //                    .exerciseSecondPanel{
+  //                     zoom: 0.88;
+  //                    }
+  //                    .hangingPannelContainer{
+  //                     margin-top: 55px;
+  //                    }
+  //             }
+  //         }
+  //     }
+
+  //     }
+
+  /* ----------- iPhone 6/7/8 and  ----------- */
+  /* Portrait */
+  //  @media (min-width: 375px) and (max-width: 667px) and (orientation: portrait) {
+  //     ion-grid{
+  //         padding: 0px !important;
+  //         ion-col{
+  //             padding: 0px !important;
+  //             ion-card{
+  //                 margin: 0px !important;
+  //                 width: 100% !important;
+
+  //                 .mat-horizontal-content-container{
+  //                         padding: 16px !important;
+  //                         box-shadow:none !important;
+  //                 }
+  //                 .mat-horizontal-stepper-header{
+  //                     height: 50px !important;
+  //                     width: 22% !important;
+  //                     padding: 10px 10px 0px 30px !important;
+  //                     margin: 0 1px !important;
+
+  //                     ion-icon{
+  //                         display: block;
+  //                         text-align: center;
+  //                     }
+  //                 }
+  //                 .mat-horizontal-stepper-header-container .mat-step-header:after,
+  //                 .mat-horizontal-stepper-header-container .mat-step-header:before {
+  //                   right: -25px;
+  //                   border-top: 35px solid transparent;
+  //                   border-bottom: 26px solid transparent;
+  //                   border-left: 25px solid #ffffff;
+  //               }
+
+  //                 .mat-horizontal-stepper-header-container .mat-step-header:before {
+  //                    border-left: 27px solid #f5f5f5;
+  //                   }
+  //                   .footerRow{
+  //                     position: absolute;
+  //                     bottom: -260px;
+  //                     width: 100%;
+  //                     right: 0;
+  //                     left: 0;
+  //                     padding: 0px 10px;
+
+  //                     button{
+  //                         background-color: transparent !important;
+  //                     }
+  //                    }
+  //                    .exerciseSecondPanel{
+  //                     zoom: 0.88;
+  //                    }
+  //                    .hangingPannelContainer{
+  //                     margin-top: 55px;
+  //                    }
+  //             }
+  //         }
+  //     }
+  //    }
+
+  .grantFirstTab {
+    [col-lg-9] {
+      flex: 0 0 80% !important;
+      width: 80% !important;
+      max-width: 80% !important;
+    }
+    .exnow {
+      flex: 0 0 20% !important;
+      width: 20% !important;
+      max-width: 20% !important;
+    }
+  }
+
+  //    esopStockRightPanel css start
+
+  .esopStockRightPanel {
+    #stockPriceTrendChart {
+      height: 180px !important;
+    }
+  }
+  .esopStockRightPanel {
+    ion-grid {
+      ion-row {
+        ion-col {
+          ion-item {
+            min-height: 3.2rem;
+            ion-label {
+              h2 {
+                font-size: 13px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //    esopStockRightPanel css stop
+
+  //   info card css start
+  .infoCard {
+    position: absolute;
+    top: 0px;
+    margin: 15px 0px !important;
+    z-index: 99;
+    height: 100% !important;
+
+    ion-card-header {
+      border-bottom: 1px solid whitesmoke;
+      font-size: 14px;
+    }
+    .cards-list-demo {
+      margin: 0px !important;
+      width: 100% !important;
+    }
+    ion-grid {
+      padding: 0;
+
+      ion-row {
+        height: 37px;
+
+        [col-md-6] {
+          padding: 0px !important;
+        }
+
+        ion-col {
+          ion-item {
+            ion-label {
+              h2 {
+                font-size: 13px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    ion-grid {
+      ion-row {
+        ion-col {
+          ion-item {
+            .item-inner {
+              ion-label {
+                margin: 0;
+                overflow: visible;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .mobileViewDesign {
+    .mat-select-value {
+      color: #fff !important;
+    }
+    .mat-select-arrow {
+      color: #fff !important;
+    }
+  }
+
+  // info card css stop
+
+  //    Mobile view design start
+
+  .mobileViewDesign {
+    ion-card {
+      margin-bottom: 10px !important;
+    }
+    .exerciseGrant,
+    .analysisDeatil,
+    .grantList {
+      ion-item {
+        height: 50px;
+      }
+    }
+    .requestSummary {
+      ion-col {
+        ion-item {
+          height: 35px;
+        }
+        .item-md .item-button {
+          padding: 0 0.6em;
+          height: 35px;
+        }
+      }
+    }
+    ion-item {
+      margin-bottom: 0px !important;
+      // border: 1px solid #eee !important;
+      border-radius: 0px !important;
+      border-right: 1px solid #eee !important;
+      border-bottom: 1px solid #eee !important;
+    }
+    ion-col {
+      .btn {
+        text-align: center;
+        color: #ee3147;
+        font-weight: 500;
+      }
+    }
+    .grantList {
+      .exnow {
+        ion-item {
+          ion-label {
+            margin: 0px !important;
+            color: #fff !important;
+          }
+        }
+      }
+    }
+    /*    .statusApproved{
+  color: color($colors , statusApproved ) !important;
+}
+.statusPending{
+  color: color($colors , statusPending ) !important;
+}
+.statusReject{
+  color: color($colors , statusReject ) !important;
+}
+.statusHold{
+  color: color($colors , statusHold ) !important;
+}
+.statusDraft{
+  color: color($colors , statusDraft ) !important;
+}
+.statusPaymentDone{
+  color: color($colors , statusPaymentDone ) !important;
+}*/
+    .taxDetails {
+      ion-item {
+        border: 0px !important;
+      }
+    }
+    .analysisDeatil {
+      .sellDate,
+      .noOfOption {
+        ion-label {
+          margin: 0px !important;
+        }
+      }
+    }
+    .mat-horizontal-content-container {
+      padding: 0px !important;
+    }
+  }
+
+  .example-small-box,
+  .example-large-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .exerciseGrant {
+    .schemeHeader {
+      ion-label {
+        margin: 0px !important;
+      }
+    }
+  }
+  .analysisDeatil {
+    .analysisHdr {
+      background-color: #f7f8f9;
+      height: 36px !important;
+    }
+  }
+  .tablayout {
+    border: 1px solid #f6f6f6 !important;
+    .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus {
+      // background-color: #ff000012 !important;
+    }
+    .mat-tab-header {
+      border-bottom: 0px !important;
+    }
+    .requestSummary,
+    .grantList {
+      margin: 20px 0px 0px 0px;
+    }
+    box-shadow: none !important;
+    border: 0px !important;
+    .mat-tab-body-wrapper {
+      background: #f6f6f6;
+    }
+    .mat-tab-group {
+      width: 100% !important;
+      .mat-tab-label {
+        width: 50% !important;
+      }
+    }
+  }
+  .buttonBlock {
+    .item-inner {
+      padding: 0px !important;
+    }
+  }
+
+  .mat-button[disabled][disabled] {
+    color: #fff !important;
+  }
+  .webSelect {
+    margin-top: 0px;
+    .mat-input-wrapper {
+      padding-bottom: 12px;
+    }
+  }
+  .mobSmallScreenOpenPannels {
+    // position: fixed;
+    // right: 5px;
+  }
+
+  .uploadedForms {
+    height: 38vh;
+    overflow-y: auto;
+    .page {
+      height: 100px !important;
+      margin: 0px !important;
+      overflow: hidden !important;
+    }
+  }
+  .mat-step-label-selected {
+    color: $theme-red !important;
+  }
+  .requestSummaryPanel {
+    .cards-list-demo {
+      margin: 0px !important;
+      width: 100% !important;
+      box-shadow: none !important;
+
+      ion-card-header {
+        border-bottom: 1px solid whitesmoke;
+        font-size: 14px;
+        background: #eee;
+        ion-icon {
+          cursor: pointer;
+        }
+      }
+
+      ion-grid {
+        padding: 0;
+
+        ion-row {
+          //   height: 37px;
+
+          [col-md-6] {
+            padding: 0px !important;
+          }
+
+          ion-col {
+            ion-item {
+              ion-label {
+                h2 {
+                  white-space: normal;
+                  font-size: 12px !important;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      ion-grid {
+        ion-row {
+          ion-col {
+            ion-item {
+              .item-inner {
+                ion-label {
+                  margin: 0;
+                  overflow: visible;
+                }
+              }
+            }
+          }
+        }
+      }
+      .remarkBlock ion-label {
+        white-space: normal !important;
+        overflow: visible;
+        word-break: break-word;
+      }
+    }
+  }
+  .remarkRowHeight {
+    height: 57px !important;
+  }
+  .extension {
+    font-size: 13px;
+    color: #7b7878;
+  }
+  .fixedBlockouter {
+    width: 100% !important;
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    .fixedBlockinner {
+      position: fixed;
+      width: 63%;
+    }
+  }
+
+  /* ----------- iPhone 5 and  ----------- */
+  /* Portrait */
+  @media only screen and (device-width: 320px) and (device-height: 568px) and (device-aspect-ratio: 40/71) {
+    .fixedContainer {
+      .scroll-content {
+        overflow-y: hidden !important;
+      }
+      .mat-tab-group-dynamic-height .mat-tab-body-content {
+        height: 100vh;
+        overflow-y: scroll;
+        ion-card:last-child {
+          margin-bottom: 50% !important;
+        }
+      }
+    }
+    ion-grid {
+      padding: 0px !important;
+      ion-col {
+        padding: 0px !important;
+        ion-card {
+          margin: 0px !important;
+          width: 100% !important;
+          .mat-horizontal-content-container {
+            padding: 0px !important;
+            .mat-tab-body-wrapper {
+              padding: 0px !important;
+
+              .requestSummary,
+              .grantList {
+                margin: 10px 0px 0px 0px !important;
+              }
+              .custSmallBtn {
+                width: 100px;
+                padding: 10px !important;
+                height: auto !important;
+                margin-bottom: 0px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .mobSmallScreenOpenPannels {
+      position: fixed;
+      right: 0px;
+      z-index: 999;
+      max-height: 100%;
+      width: 100%;
+    }
+    .mat-stepper-horizontal .mat-horizontal-stepper-header-container {
+      height: 50px !important;
+    }
+    .mat-horizontal-stepper-header-container {
+      margin-bottom: 0px !important;
+      position: fixed;
+      width: 100%;
+      top: 19px;
+      z-index: 99;
+      background: #fff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+
+      .mat-horizontal-stepper-header {
+        height: 50px !important;
+      }
+      .mat-stepper-horizontal .mat-horizontal-stepper-header {
+        padding: 0px 0px 0px 23px !important;
+      }
+      .mat-step-header:after,
+      .mat-step-header:before {
+        right: -21px;
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 24px solid #ffffff;
+      }
+
+      .mat-step-header:before {
+        left: -8px;
+        border-left: 25px solid #e4e3d8;
+      }
+    }
+    .mat-horizontal-content-container {
+      margin-top: 60px;
+    }
+    .exercisePannel {
+      background: transparent !important;
+    }
+    .noBorder {
+      border-right: 0px !important;
+      border-bottom: 0px !important;
+    }
+    .mat-form-field-underline {
+      background-color: transparent !important;
+    }
+    .exercisePannel .mat-stepper-horizontal .mat-horizontal-stepper-header {
+      padding: 0px 10px 0px 20px !important;
+    }
+    .mat-step-label-selected {
+      font-size: 12px !important;
+    }
+    .mat-step-label {
+      font-size: 12px !important;
+    }
+    .smallScreenBtn {
+      border: 1px solid transparent;
+      width: 100%;
+      height: 100%;
+      font-size: 13px !important;
+    }
+    .exercisePannel .custBtn {
+      width: 85px !important;
+    }
+    .blockContainerScroll {
+      .mobMarginBottom {
+        margin-bottom: 35%;
+      }
+    }
+    .requestSummaryPanel .cards-list-demo {
+      height: 100vh;
+    }
+  }
+  /* ----------- iPhone 5 and  ----------- */
+  /* Landscape */
+  @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+    // .mat-horizontal-stepper-header-container {
+    //     margin-bottom: 0px !important;
+    //     position: fixed;
+    //     width: 100%;
+    //     top: 6px;
+    //     z-index: 99;
+    //     background: #fff;
+    //     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+    //     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+    // }
+  }
+
+  .calculateDataBlock {
+    [col-lg-2] {
+      -webkit-flex: 0 0 20%;
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      width: 20%;
+      max-width: 20%;
+    }
+  }
+
+  /* ----------- Ipad  and  ----------- */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .mat-stepper-horizontal .mat-horizontal-stepper-header-container {
+      height: 39px !important;
+      margin-bottom: 10px !important;
+    }
+    .mat-horizontal-stepper-header-container {
+      position: inherit;
+      top: 0px !important;
+      z-index: unset !important;
+    }
+    ion-grid ion-col ion-card {
+      margin: 10px !important;
+      width: auto !important;
+    }
+    ion-grid ion-col ion-card .mat-horizontal-content-container {
+      padding: 0px !important;
+    }
+    .mat-horizontal-content-container {
+      margin-top: 0px !important;
+    }
+    .grantFirstTab {
+      ion-card {
+        margin: 0px 0px 10px 0px !important;
+        width: 100% !important;
+      }
+    }
+  }
+
+  /* ----------- Ipad Pro and  ----------- */
+  /* Portrait */
+  @media (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+    .exercisePannel .card-ios {
+      margin: 0px 0px 20px 0px !important;
+      width: 100% !important;
+    }
+    .exercisePannel .grantFirstTab .exerciseDeatilCards .custSmallBtn {
+      width: 45px !important;
+      span {
+        font-size: 1rem !important;
+      }
+    }
+  }
+
+  /* ----------- iPhone X and  ----------- */
+  /* Portrait */
+  @media (min-width: 375px) and (max-width: 812px) and (orientation: portrait) {
+    .fixedContainer {
+      .scroll-content {
+        overflow-y: hidden !important;
+      }
+      .mat-tab-group-dynamic-height .mat-tab-body-content {
+        height: 100vh;
+        overflow-y: scroll;
+        ion-card:last-child {
+          margin-bottom: 50% !important;
+        }
+      }
+    }
+    ion-grid {
+      padding: 0px !important;
+      ion-col {
+        padding: 0px !important;
+        ion-card {
+          margin: 0px !important;
+          width: 100% !important;
+          .mat-horizontal-content-container {
+            padding: 0px !important;
+            .mat-tab-body-wrapper {
+              padding: 0px !important;
+
+              .requestSummary,
+              .grantList {
+                margin: 10px 0px 0px 0px !important;
+              }
+              .custSmallBtn {
+                width: 100px;
+                padding: 10px !important;
+                height: auto !important;
+                margin-bottom: 0px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .mobSmallScreenOpenPannels {
+      position: fixed;
+      right: 0px;
+      z-index: 999;
+      max-height: 100%;
+      width: 100%;
+    }
+    .mat-stepper-horizontal .mat-horizontal-stepper-header-container {
+      height: 50px !important;
+    }
+    .mat-horizontal-stepper-header-container {
+      margin-bottom: 0px !important;
+      position: fixed;
+      width: 100%;
+      top: 6px;
+      z-index: 99;
+      background: #fff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+
+      .mat-horizontal-stepper-header {
+        height: 50px !important;
+      }
+      .mat-stepper-horizontal .mat-horizontal-stepper-header {
+        padding: 0px 0px 0px 23px !important;
+      }
+      .mat-step-header:after,
+      .mat-step-header:before {
+        right: -21px;
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 24px solid #ffffff;
+      }
+
+      .mat-step-header:before {
+        left: -8px;
+        border-left: 25px solid #e4e3d8;
+      }
+    }
+    .mat-horizontal-content-container {
+      margin-top: 60px;
+    }
+    .exercisePannel {
+      background: transparent !important;
+    }
+    .noBorder {
+      border-right: 0px !important;
+      border-bottom: 0px !important;
+    }
+    .mat-form-field-underline {
+      background-color: transparent !important;
+    }
+    .exercisePannel .mat-stepper-horizontal .mat-horizontal-stepper-header {
+      //   padding: 0px 10px 0px 20px !important;
+    }
+    .mat-step-label-selected {
+      font-size: 14px !important;
+    }
+    .mat-step-label {
+      font-size: 14px !important;
+    }
+    .smallScreenBtn {
+      border: 1px solid transparent;
+      width: 100%;
+      height: 100%;
+      font-size: 13px !important;
+    }
+    .exercisePannel .custBtn {
+      width: 85px !important;
+    }
+    .blockContainerScroll {
+      .mobMarginBottom {
+        margin-bottom: 35%;
+      }
+    }
+    .requestSummaryPanel .cards-list-demo {
+      height: 100vh;
+    }
+  }
+
+  /* -----------  iphone X  ----------- */
+
+  /* Landscape */
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+    .fixedContainer {
+      .scroll-content {
+        padding-top: 3% !important;
+      }
+      ion-grid {
+        padding: 5px !important;
+        ion-col {
+          ion-card {
+            margin: 0px !important;
+            width: 100% !important;
+            .custSmallBtn {
+              width: auto !important;
+              margin-bottom: 0px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* -----------  iphone 6/7/8 + ----------- */
+
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+    .fixedContainer {
+      .scroll-content {
+        top: 6%;
+      }
+      ion-grid {
+        padding: 0px !important;
+        ion-col {
+          padding: 0px !important;
+          ion-card {
+            margin: 0px !important;
+            width: 100% !important;
+            .mat-horizontal-content-container {
+              padding: 0px !important;
+              .mat-tab-body-wrapper {
+                padding: 0px !important;
+
+                .requestSummary,
+                .grantList {
+                  margin: 10px 0px 0px 0px !important;
+                }
+                .custSmallBtn {
+                  width: 100px;
+                  padding: 10px !important;
+                  height: auto !important;
+                  margin-bottom: 0px !important;
+                }
+              }
+            }
+          }
+          .taxDetails {
+            margin-bottom: 16px !important;
+          }
+          .analysisDeatil {
+            margin-bottom: 16px !important;
+          }
+        }
+      }
+      .mobSmallScreenOpenPannels {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        max-height: 100%;
+        width: 100%;
+        .rsuMainTable {
+          width: 100%;
+        }
+        .example-container {
+          margin-bottom: 10%;
+        }
+      }
+      .mat-horizontal-stepper-header-container {
+        margin-bottom: 0px !important;
+        position: fixed;
+        width: 100%;
+        top: 6px;
+        z-index: 99;
+        background: #fff;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08),
+          0 2px 4px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08),
+          0 2px 4px rgba(0, 0, 0, 0.08);
+      }
+      .mat-horizontal-content-container {
+        margin-top: 50px !important;
+      }
+    }
+  }
+
+  /* ----------- iPhone 6/7/8 and  ----------- */
+  /* Portrait */
+  @media (min-width: 375px) and (max-width: 667px) and (orientation: portrait) {
+    .fixedContainer {
+      .scroll-content {
+        overflow-y: hidden !important;
+      }
+      .mat-tab-group-dynamic-height .mat-tab-body-content {
+        height: 100vh;
+        overflow-y: scroll;
+        ion-card:last-child {
+          margin-bottom: 50% !important;
+        }
+      }
+    }
+    ion-grid {
+      padding: 0px !important;
+      ion-col {
+        padding: 0px !important;
+        ion-card {
+          margin: 0px !important;
+          width: 100% !important;
+          .mat-horizontal-content-container {
+            padding: 0px !important;
+            .mat-tab-body-wrapper {
+              padding: 0px !important;
+
+              .requestSummary,
+              .grantList {
+                margin: 10px 0px 0px 0px !important;
+              }
+              .custSmallBtn {
+                width: 100px;
+                padding: 10px !important;
+                height: auto !important;
+                margin-bottom: 0px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .mobSmallScreenOpenPannels {
+      position: fixed;
+      right: 0px;
+      z-index: 999;
+      max-height: 100%;
+      width: 100%;
+    }
+    .mat-stepper-horizontal .mat-horizontal-stepper-header-container {
+      height: 50px !important;
+    }
+    .mat-horizontal-stepper-header-container {
+      margin-bottom: 0px !important;
+      position: fixed;
+      width: 100%;
+      top: 6px;
+      z-index: 99;
+      background: #fff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+
+      .mat-horizontal-stepper-header {
+        height: 50px !important;
+      }
+      .mat-stepper-horizontal .mat-horizontal-stepper-header {
+        //   padding: 0px 0px 0px 23px !important;
+      }
+      .mat-step-header:after,
+      .mat-step-header:before {
+        right: -21px;
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 24px solid #3b2121;
+      }
+
+      .mat-step-header:before {
+        left: -8px;
+        border-left: 25px solid #e4e3d8;
+      }
+      .mat-step-header .mat-step-label {
+        // padding-top: 15px;
+        margin: auto !important;
+      }
+    }
+    .mat-horizontal-content-container {
+      margin-top: 60px;
+    }
+    .exercisePannel {
+      background: transparent !important;
+    }
+    .noBorder {
+      border-right: 0px !important;
+      border-bottom: 0px !important;
+    }
+    .mat-form-field-underline {
+      background-color: transparent !important;
+    }
+    .exercisePannel .mat-stepper-horizontal .mat-horizontal-stepper-header {
+      //   padding: 0px 10px 0px 20px !important;
+    }
+    .mat-step-label-selected {
+      font-size: 14px !important;
+    }
+    .mat-step-label {
+      font-size: 14px !important;
+    }
+    .smallScreenBtn {
+      border: 1px solid transparent;
+      width: 100%;
+      height: 100%;
+      font-size: 13px !important;
+    }
+    .exercisePannel .custBtn {
+      width: 85px !important;
+    }
+    .blockContainerScroll {
+      .mobMarginBottom {
+        margin-bottom: 35%;
+      }
+    }
+    .requestSummaryPanel .cards-list-demo {
+      height: 100vh;
+    }
+  }
+  /* iPhone 6 / 7/ 8 ----------- */
+  /* Landscape */
+  @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+    .fixedContainer {
+      .scroll-content {
+        top: 6%;
+      }
+      ion-grid {
+        padding: 0px !important;
+        ion-col {
+          padding: 0px !important;
+          ion-card {
+            margin: 0px !important;
+            width: 100% !important;
+            .mat-horizontal-content-container {
+              padding: 0px !important;
+              .mat-tab-body-wrapper {
+                padding: 0px !important;
+
+                .requestSummary,
+                .grantList {
+                  margin: 10px 0px 0px 0px !important;
+                }
+                .custSmallBtn {
+                  width: 100px;
+                  padding: 10px !important;
+                  height: auto !important;
+                  margin-bottom: 0px !important;
+                }
+              }
+            }
+          }
+        }
+      }
+      .mobSmallScreenOpenPannels {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        max-height: 100%;
+        width: 100%;
+        .rsuMainTable {
+          width: 100%;
+        }
+        .example-container {
+          margin-bottom: 10%;
+        }
+      }
+      .mat-horizontal-stepper-header-container {
+        margin-bottom: 0px !important;
+        position: fixed;
+        width: 100%;
+        top: 6px;
+        z-index: 99;
+        background: #fff;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08),
+          0 2px 4px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08),
+          0 2px 4px rgba(0, 0, 0, 0.08);
+      }
+      .mat-horizontal-content-container {
+        margin-top: 50px !important;
+      }
+    }
+  }
+
+  /* -----------  galaxy s5  ----------- */
+  /* Landscape */
+  @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+    // @media only screen and (device-width: 360px) and (device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+    .fixedContainer {
+      .scroll-content {
+        top: 6%;
+      }
+      ion-grid {
+        padding: 0px !important;
+        ion-col {
+          padding: 0px !important;
+          ion-card {
+            margin: 0px !important;
+            width: 100% !important;
+          }
+        }
+      }
+      .mobSmallScreenOpenPannels {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        max-height: 100%;
+        width: 100%;
+        .rsuMainTable {
+          width: 100%;
+        }
+        .example-container {
+          margin-bottom: 10%;
+        }
+      }
+      .mat-horizontal-stepper-header {
+        display: flex !important;
+      }
+    }
+  }
+
+  /* ----------- Galaxy S5  ----------- */
+  /* Portrait */
+  @media (min-width: 360px) and (max-width: 640px) and (orientation: portrait) {
+    .fixedContainer {
+      .scroll-content {
+        overflow-y: hidden !important;
+      }
+      .mat-tab-group-dynamic-height .mat-tab-body-content {
+        height: 100vh;
+        overflow-y: scroll;
+        ion-card:last-child {
+          margin-bottom: 50% !important;
+        }
+      }
+    }
+    ion-grid {
+      padding: 0px !important;
+      ion-col {
+        padding: 0px !important;
+        ion-card {
+          margin: 0px !important;
+          width: 100% !important;
+          .mat-horizontal-content-container {
+            padding: 0px !important;
+            .mat-tab-body-wrapper {
+              padding: 0px !important;
+
+              .requestSummary,
+              .grantList {
+                margin: 10px 0px 0px 0px !important;
+              }
+              .custSmallBtn {
+                width: 100px;
+                padding: 10px !important;
+                height: auto !important;
+                margin-bottom: 0px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .item-inner ion-label {
+      white-space: inherit;
+      width: 100%;
+      display: block;
+    }
+    .mobSmallScreenOpenPannels {
+      position: fixed;
+      right: 0px;
+      z-index: 999;
+      max-height: 100%;
+      width: 100%;
+    }
+    .mat-stepper-horizontal .mat-horizontal-stepper-header-container {
+      height: 50px !important;
+    }
+    .mat-horizontal-stepper-header-container {
+      margin-bottom: 0px !important;
+      position: fixed;
+      width: 100%;
+      top: 5px;
+      z-index: 99;
+      background: #fff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+
+      .mat-horizontal-stepper-header {
+        height: 50px !important;
+      }
+      .mat-stepper-horizontal .mat-horizontal-stepper-header {
+        padding: 0px 0px 0px 23px !important;
+      }
+      .mat-step-header:after,
+      .mat-step-header:before {
+        right: -21px;
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 24px solid #ffffff;
+      }
+
+      .mat-step-header:before {
+        left: -8px;
+        border-left: 25px solid #e4e3d8;
+      }
+      .mat-step-header .mat-step-label {
+        // padding-top: 15px;
+        margin: auto !important;
+      }
+    }
+    .mat-horizontal-content-container {
+      margin-top: 60px;
+    }
+    .exercisePannel {
+      background: transparent !important;
+    }
+    .noBorder {
+      border-right: 0px !important;
+      border-bottom: 0px !important;
+    }
+    .mat-form-field-underline {
+      background-color: transparent !important;
+    }
+    .exercisePannel .mat-stepper-horizontal .mat-horizontal-stepper-header {
+      // padding: 0px 10px 0px 20px !important;
+    }
+    .mat-step-label-selected {
+      font-size: 13px !important;
+    }
+    .mat-step-label {
+      font-size: 13px !important;
+    }
+    .smallScreenBtn {
+      border: 1px solid transparent;
+      width: 100%;
+      height: 100%;
+      font-size: 13px !important;
+    }
+    .blockContainerScroll {
+      .mobMarginBottom {
+        margin-bottom: 35%;
+      }
+    }
+    .requestSummaryPanel .cards-list-demo {
+      height: 100vh;
+    }
+  }
+  .blockContainerScroll {
+    // height: 100vh;
+    // overflow-y: scroll;
+  }
+  .eyeViewBtn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    ion-icon {
+      display: table;
+      align-items: center;
+      justify-content: center;
+      margin: 0px 15px !important;
+    }
+  }
+  .disableGrant {
+    opacity: 0.5;
+  }
+  .recalculateBtn {
+    height: 30px !important;
+    margin-bottom: 0px !important;
+    width: 150px;
+    background: #fff !important;
+  }
+  .stockPriceCardHeader {
+    border-bottom: 1px solid #e1e1e1;
+    background: #f4f4f4;
+    font-weight: bold;
+  }
+  .m-r-10 {
+    margin-right: 10px;
+  }
+  .stepPanelHeader {
+    padding: 0px 5px !important;
+  }
+  .exerciseSecondTab {
+    ion-card {
+      .grantCalTab {
+        height: calc(100vh - 290px);
+        overflow-y: scroll;
+      }
+    }
+  }
+  .confirmExerciseTab {
+    background: #ffffff !important;
+    .mat-vertical-content {
+      padding: 0px;
+    }
+  }
+  .confirmExerciseTab {
+    .mat-stepper-vertical {
+      background-color: #fff !important;
+    }
+    .mat-step-header {
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      padding: 10px;
+      border-radius: 3px;
+      // margin-bottom: 10px;
+      .mat-step-label {
+        margin: unset !important;
+      }
+    }
+    .mat-step {
+      // margin-bottom: 10px;
+    }
+    .mat-vertical-content-container {
+      background: #fff !important;
+      margin-left: 0px !important;
+    }
+    .greenText {
+      color: #2ecc71 !important;
+      .ion-icon {
+        font-size: 1.8rem;
+      }
+      .successIcon {
+        color: #2ecc71;
+      }
+    }
+    .tabTextContent {
+      color: #000;
+      font-weight: 500;
+    }
+    .successPanel {
+      border-left: 3px solid green;
+      background: #e4f3e4;
+    }
+    .activeTab {
+      mat-step-header {
+        border-left: 3px solid #2ecc71;
+        background: #2ecc71;
+      }
+    }
+    .confirmStep {
+      height: calc(100vh - 270px);
+      overflow-y: scroll;
+      background: #fff;
+    }
+  }
+  .pointerDisable {
+    pointer-events: none !important;
+  }
+  .whatif {
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 1px solid #c3c3c3;
+  }
+  .grantChecked {
+    // font-size: 1.5rem;
+    // color: green;
+    // font-weight: 600;
+    // margin: -3px;
+    // position: fixed;
+  }
+  .exnowMulti {
+    margin: 0 auto;
+    border: 0 !important;
+  }
+  .exnowBtn {
+    background: #303038;
+    color: #fff;
+    text-align: center;
+    width: 150px;
+  }
+  .grantError {
+    color: #ee3147;
+    margin-left: 5px;
+    font-size: 1.5rem;
+    background: #fff3f3;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 2px solid #ee3147;
+  }
+  .newError {
+    background: #f14e37 !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    padding: 2px !important;
+  }
+  .newSucess {
+    background: #78C545 !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    padding: 2px !important;
+    border: 2px solid #78C545;
+  }
+  .stickDiv {
+    position: sticky !important;
+    bottom: -15px !important;
+    background: #fff;
+  }
+  tr.mat-footer-row {
+    font-weight: bold;
+  }
+  .alignR {
+    text-align: right;
+  }
+  .justifyCenter {
+    display: flex;
+    justify-content: center;
+  }
+  .summaryLoader {
+    img {
+      width: 50px;
+    }
+    span {
+      margin-top: 20px;
+    }
+  }
+  .grantBlockList {
+    height: 67vh;
+    overflow-y: auto;
+    padding-bottom: 7% !important;
+  }
+  .bonusRow {
+    ion-col {
+      ion-item {
+        background: #fcfcfc !important;
+        .bonusTile {
+          width: 25%;
+          border-radius: 3px;
+          background: #f14e37;
+          color: #fff !important;
+          border: 1px solid #ef4b36;
+          text-align: center;
+          // padding: 2px;
+          font-size: 10px;
+        }
+      }
+    }
+  }
+  .mat-tab-label .mat-tab-label-content {
+    font-family: "Lato-Regular";
+  }
+  .mat-checkbox-layout .mat-checkbox-label {
+    font-family: "Lato-Regular";
+  }
+  .topBorder {
+    border-top: 1px solid #eee !important;
+  }
+  .rightBorder {
+    border-right: 1px solid #eee !important;
+  }
+  .exerciseSummaryTab {
+    .grantBlockList {
+      ion-row {
+        border-left: 2px solid #9e9e9e;
+        ion-col {
+          .exerciseDeatilCards:last-child {
+            border-right: 1px solid #eee !important;
+          }
+        }
+      }
+    }
+  }
+
+  .FMVCalculatorBlock {
+    ion-card-header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      ion-row {
+        ion-col {
+          .hdrText {
+            color: color($colors, icon-dark-gray);
+            font-family: "Lato-Regular";
+            font-size: 14px;
+            .hdrValue {
+              color: color($colors, theme-red, dark);
+              font-family: "Lato-Regular";
+            }
+          }
+        }
+      }
+    }
+    .example-container.tbl_New_Layout {
+      overflow: hidden !important;
+    }
+    .example-container.tbl_New_Layout .table-container {
+      overflow-x: auto;
+      height: 38vh;
+      overflow-y: auto;
+    }
+    .example-container.tbl_New_Layout td.mat-cell {
+      word-break: break-word;
+    }
+    .footerCelBg1 {
+      background-color: #f0f0f0 !important;
+    }
+    .footerCelBg2 {
+      background-color: #d1d1d1 !important;
+    }
+    .calculateBtnBlock {
+      [offset-4] {
+        margin-left: 41.6% !important;
+      }
+      [col-2] {
+        flex: 0 0 18% !important;
+        width: 18% !important;
+        max-width: 18% !important;
+      }
+    }
+    .grantBlockList {
+      table {
+        tbody {
+          tr {
+            td:nth-of-type(1) {
+              border-left: 1px solid #e0e0e0;
+            }
+            td:nth-of-type(11) {
+              border-right: 2px solid #e0e0e0;
+            }
+            // mat-form-field{
+            //   width: 70% !important;
+            // }
+          }
+        }
+      }
+    }
+  }
+  @include mat-table-columns(
+    (
+      GrantOptionId: (
+        width: 15rem,
+      ),
+      OptionsGranted: (
+        width: 5rem,
+      ),
+      UnvestedOptions: (
+        width: 5rem,
+      ),
+      Exerciseable: (
+        width: 5rem,
+      ),
+      OptionsOpted: (
+        width: 5rem,
+      ),
+      ExercisePrice: (
+        width: 5rem,
+      ),
+      ExerciseAmount: (
+        width: 5rem,
+      ),
+      PerquisiteValue: (
+        width: 5rem,
+      ),
+      PerquesiteTax: (
+        width: 5rem,
+      ),
+      NetProfit: (
+        width: 5rem,
+      ),
+      Tax: (
+        width: 5rem,
+      ),
+    )
+  );
+  .confirmTabBlock {
+    ion-card-header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    .mat-stepper-vertical-line::before {
+      border-left: 0px !important;
+    }
+  }
+  .outerImgBlock {
+    height: 100%;
+    width: 50%;
+    margin: auto;
+  }
+  .calculateBtnBlock {
+    padding: 5px 0px;
+  }
+  .summaryFooter {
+    background: #f0f0f0;
+  }
+  .checkMarkConatiner {
+    .item-inner {
+      padding: 0px !important;
+      text-align: center;
+      .grantChecked {
+        color: green;
+        font-weight: 600;
+        border: 1px solid #eee;
+        padding: 0px 2px;
+        border-radius: 3px;
+        margin-left: 0px;
+      }
+    }
+  }
+  .hdrMarkCheckContainer {
+    display: inline-block;
+    width: 100px;
+    flex: 0 0 4.2% !important;
+    width: 4.2% !important;
+    max-width: 4.2% !important;
+    text-align: center;
+    border-right: 1px solid #eee;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .grantHdrBlock {
+    .item-inner {
+      padding-left: 0px !important;
+      ion-label {
+        height: 44px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hdrText {
+        color: #2d3c50;
+        padding-left: 15px;
+      }
+    }
+  }
+  ion-footer {
+    background: #fff;
+  }
+
+  .disable-doc-tab {
+    .mat-step:nth-child(3) {
+      .mat-step-header {
+        pointer-events: none;
+        .mat-step-label {
+          color: #d3d3d3;
+        }
+      }
+    }
+  }
+
+  .file-name-container {
+    padding-right: 15px;
+    color: #663399;
+    text-align: right;
+  }
+  .file-preview-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+    img {
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: contain;
+    }
+  }
+  .exercise-confirm-btn {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .file-preview-separator {
+    height: 100%;
+    width: 1px;
+    background-color: #dadada;
+  }
+
+  .blink-border {
+    animation: blink 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes blink {
+    50% {
+      border: 2px solid yellow;
+    }
+  }
+}
+
+
+.ap-tab {
+  display: flex;
+  .ap-tab-nav {
+    width: 33.3333%;
+    text-align: center;
+    .ap-tab-ref {
+      display: block;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      flex: 1;
+      padding: 18px 30px;
+      border-bottom: 3px solid #e1e1e1;
+      cursor: pointer;
+      &.active {
+        border-bottom: 3px solid #179BD7;
+      }
+    }
+  }
+}
+
+button[disabled] {
+ color: #888;
+}
+
+.ap-tab-container {
+  display: block;
+  padding: 20px;
+  height: calc(100vh - 190px);
+}
+
+.ap-scroll {
+  height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.min-150 {
+ margin-right: 50px;
+}
+
+.ap-number {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #179BD7;
+  color: #fff;
+  display: inline-block;
+  padding: 3px 4px;
+  font-size: 11px;
+  margin-right: 5px;
+}
